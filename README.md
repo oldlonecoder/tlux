@@ -1,5 +1,5 @@
 # tuxic
-* C++ ancient 1988-esque tuxic code using some modern c++-11/20 easiness. Dot.
+* C++ ancient 1988-esque tuxic code using some modern c++-11/20 easiness and some STL goodies. Dot.
 
 
 #### By order of dependancy:
