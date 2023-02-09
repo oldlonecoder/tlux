@@ -46,7 +46,7 @@
 
 
 
-namespace teacc
+namespace tux
 {
 
 struct  color final

@@ -2,7 +2,7 @@
 
 
 
-namespace teacc
+namespace tux
 {
 
 //impl_rttn(color)
