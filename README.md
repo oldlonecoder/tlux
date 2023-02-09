@@ -5,7 +5,7 @@
 ### I try to NOT using the STL/GNU stdc++. 
 
 
-# By order of dependancy:
+#### By order of dependancy:
 * utf       : Basic glyph support. ( beware: not utf-* standard, using litteraly ...hardcoded const char* )
               For now it is french accents and some glyphs from the awesome (nerd) fonts.
 * textattr  : Define and manage everything about text attributes (color/pairs, ansi256 and html enconding)
