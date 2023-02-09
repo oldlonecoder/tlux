@@ -16,6 +16,8 @@ static  textattr::format color_format = textattr::format::ansi256;
 
 // ----------- Color base code: -------------------------------------
 
+
+
 // color_data
   std::vector<color_data> ColorDB = {
     {color::Black,            "#000"/*#000000	*/, 0x00, 0x00, 0x00},//#000000	rgb(128,0,0)	hsl(0,100%,25%)
