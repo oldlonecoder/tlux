@@ -1,4 +1,4 @@
-project(tuxic VERSION 0.0.1 LANGUAGES CXX)
+#project(tuxic VERSION 0.0.1 LANGUAGES CXX)
 
 
 include(GNUInstallDirs)
@@ -10,7 +10,7 @@ add_library(
         ${PROJECT_NAME}
         SHARED
         # include/${FrameWorkName}/dlconfig.h     #global framework-wide macros definitions and dll export and import macros for MSVC.
-        include/textattr.h         src/textattr.cc
+        include/${PROJECT_NAME}/textattr.h         src/textattr.cc
         #include/utf/Icons.h        src/utf/Icons.cc
         #include/utf/accents.fr.h   src/utf/accents.fr.cc
         #include/stracc.h           src/stracc.cc #include the above headers.

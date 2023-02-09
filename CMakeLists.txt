@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13..3.24 FATAL_ERROR)
 ## Project name
-set(FrameWorkName "teacc")
-project(${FrameWorkName} VERSION 0.1.0 LANGUAGES CXX)
+set(FrameWorkName "tuxic")
+project(tuxic  VERSION 0.0.1 LANGUAGES CXX)
 
 
-include(Master.cmake)
+include(tuxic.cmake)
