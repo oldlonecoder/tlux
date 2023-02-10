@@ -5,4 +5,4 @@ project(tuxic  VERSION 0.0.1 LANGUAGES CXX)
 
 
 include(tuxic.cmake)
-include(scripter.cmake)
+

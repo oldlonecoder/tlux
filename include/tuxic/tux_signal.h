@@ -97,6 +97,11 @@ public:
 
     // Disconnects a previously connected function.
     void disconnect(typename tux_signal::slots::iterator c) const {
+        //----------------------------------------------------
+        // This addition is slow'ing the solution but it is mandatory:
+        if(std::find(_slots.begin(),_slots.end(), *c) == _slots.end())
+            return;
+        //----------------------------------------------------
         _slots.erase(c);
     }
 
