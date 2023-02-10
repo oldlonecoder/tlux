@@ -11,15 +11,16 @@ add_library(
         SHARED
         # include/${FrameWorkName}/dlconfig.h     #global framework-wide macros definitions and dll export and import macros for MSVC.
         include/${PROJECT_NAME}/textattr.h         src/textattr.cc
-        #include/${PROJECT_NAME}/utf/Icons.h        src/utf/Icons.cc
-        #include/${PROJECT_NAME}/utf/accents.fr.h   src/utf/accents.fr.cc
-        #include/${PROJECT_NAME}/stracc.h           src/stracc.cc #include the above headers.
-        #include/${PROJECT_NAME}/application.h      src/application.cc
-        #include/${PROJECT_NAME}/diagnostic.h       src/diagnostic.cc #include the above headers.
-        #include/${PROJECT_NAME}/geometry.h         src/geometry.cc # standalone
-        #include/${PROJECT_NAME}/teacc_signal.h  # bare basic single-thread signal-slots
-        #include/${PROJECT_NAME}/strbrk.h           src/strbrk.cc
-        #include/${PROJECT_NAME}/object.h           src/object.cc
+        include/${PROJECT_NAME}/utf/Icons.h        src/utf/Icons.cc
+        include/${PROJECT_NAME}/utf/accents.fr.h   src/utf/accents.fr.cc
+        include/${PROJECT_NAME}/stracc.h           src/stracc.cc #include the above headers.
+        include/${PROJECT_NAME}/application.h      src/application.cc
+        include/${PROJECT_NAME}/diagnostic.h       src/diagnostic.cc #include the above headers.
+        include/${PROJECT_NAME}/geometry.h         src/geometry.cc # standalone
+        include/${PROJECT_NAME}/tux_signal.h  # bare basic single-thread signal-slots
+        include/${PROJECT_NAME}/strbrk.h           src/strbrk.cc
+        include/${PROJECT_NAME}/object.h           src/object.cc
+        include/${PROJECT_NAME}/stml/text.h        src/stml/text.cc
 #        include/${FrameWorkName}/db/entity.h        src/db/entity.cc
 #        include/${FrameWorkName}/db/database.h      src/db/database.cc
 

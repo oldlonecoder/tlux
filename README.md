@@ -13,14 +13,6 @@
 * smtl      : Basic simple markup text utility using the stuff provided by this project.
 * tux_signal: Basic signal-slots, from https://schneegans.github.io/tutorials/2015/09/20/signal-slot,
               adapted to this project specifics.
-* cnt       : Simple implement of easy input/output operators to the std::vector and std::list
-    * #### for example:
-***
-    //... note that "array" and "vector" are inverted here.
-    // array becomes dynamic, and vector is static.
-    cnt::array<object*> collection;
-    //...
-    collection << _obj_ptr;
 
-***
 
+-- more to come...
