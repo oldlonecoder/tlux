@@ -16,6 +16,6 @@
 * tux_signal: Basic signal-slots, from https://schneegans.github.io/tutorials/2015/09/20/signal-slot,
               adapted to this project specifics.
 
---- I am an old lone coder.
+--- I am a "tuxic" old lone coder.
 
 -- more to come...
