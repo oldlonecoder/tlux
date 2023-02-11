@@ -34,82 +34,84 @@ namespace tux::db
 
 
 
-struct select : public object
-{
-    field::list field;
-};
+// struct select : public object
+// {
+//     field::list field;
+// };
 
-struct insert : public object
-{
-
-};
-
-
-struct update : public object
-{
-    field::list fields;
-};
-
-struct delete : public object
-{
-    field::list fields;
-};
-
-// struct  alter : public object
+// struct insert : public object
 // {
 
 // };
 
 
+// struct update : public object
+// {
+//     field::list fields;
+// };
+
+// struct delete : public object
+// {
+//     field::list fields;
+// };
+
+// // struct  alter : public object
+// // {
+
+// // };
+
+
+// /*!
+//     @brief sql_operator n'est PAS un processeur arithmétique!
+//     Il sert, parmi les autres objets,  à générer le texte SQL pour les query
+//     à partir des objets c++ et ce, le plus naturellement fluide qu'il m'est possible de réaliser.
+// */
+// struct sql_operator : public object
+// {
+//     enum op:int8_t {
+//         add = 0,
+//         sub,
+//         inc,
+//         dec,
+//         between,
+//         lequ,
+//         gequ,
+//         equ,
+//         mul,
+//         mod,
+//         div,
+//         in,
+//         nin,
+//         like,
+//         glob,
+//         not,
+//         or,
+//         null,
+//         exist,
+//         concat,
+//         unique,
+//         bor,
+//         band,
+//         bxor,
+//         lshift,
+//         rshift,
+//         c1,
+//         count ///< pas vraiment un operateur mais quand-meme..
+//     };
+
+// };
+
+
+// struct where : public object
+// {
+//     sql_operator::list  operators;
+//     //...
+
+// };
+
 /*!
-    @brief sql_operator n'est PAS un processeur arithmétique!
-    Il sert, parmi les autres objets,  à générer le texte SQL pour les query
-    à partir des objets c++ et ce, le plus naturellement fluide qu'il m'est possible de réaliser.
+    @brief As of now, this version only holds query composition built from the provided list of tables::fields and bare-base 'WHERE' clause where applied.
 */
-struct sql_operator : public object
-{
-    enum op:int8_t {
-        add = 0,
-        sub,
-        inc,
-        dec,
-        between,
-        lequ,
-        gequ,
-        equ,
-        mul,
-        mod,
-        div,
-        in,
-        nin,
-        like,
-        glob,
-        not,
-        or,
-        null,
-        exist,
-        concat,
-        unique,
-        bor,
-        band,
-        bxor,
-        lshift,
-        rshift,
-        c1,
-        count ///< pas vraiment un operateur mais quand-meme..
-    };
-
-};
-
-
-struct where : public object
-{
-    sql_operator::list  operators;
-    //...
-
-};
-
-
 class query : public object
 {
     field::list _fields; ///< Chaque field a une ref sur la table parent. Donc pas besoin de la liste de tables en plus ici!
@@ -118,8 +120,13 @@ class query : public object
 
 public:
     query();
-    query(query&& Q) noexccept;
+    query(query&& Q) noexcept;
     query(const query& Q);
+
+
+    query operator << (db::field* af);
+    query operator << (db::field::list&& af);
+    query operator << (db::table* atbl);
 
 };
 } // namespace tux::db
