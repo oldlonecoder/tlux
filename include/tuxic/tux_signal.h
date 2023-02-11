@@ -1,6 +1,6 @@
 /***************************************************************************
 *   Copyright (C) 2005/2023 by Serge Lussier                              *
-*   2005: (bretzel@tuxweb.homelinux.net)                                  *
+*   2005: (bRTzel@tuxweb.homelinux.net)                                  *
 *   2023: lussier.serge@gmail.com, oldlonecoder@gmail.com                 *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -39,20 +39,25 @@ namespace tux
 {
 
 
+/*!
+    @brief Thread non-safe slignal-slots.
 
-template<typename Ret, typename ...Args> class tux_signal
+    @note typename RT must be default-constructible.
+
+*/
+template<typename RT, typename ...Args> class tux_signal
 {
-    using slots = std::vector<std::function<Ret(Args...)>>;
+    using slots = std::vector<std::function<RT(Args...)>>;
     using iterator = typename tux_signal::slots::iterator;
 
     std::string _id;
     slots _slots;
 
 public:
-    using slot = std::function<Ret(Args...)>;
+    using slot = std::function<RT(Args...)>;
 
     tux_signal() = default;
-    using accumulator = std::vector<Ret>;
+    using accumulator = std::vector<RT>;
 
     tux_signal(std::string&& aid,typename tux_signal::accumulator & acc):
     _id(std::move(aid)),
@@ -71,27 +76,27 @@ public:
             _id         = std::move(other._id);
             _accumulator= std::move(other._accumulator);
         }
-        return *this;
+        RTurn *this;
     }
 
-    // Connects a std::function to the signal. The returned
+    // Connects a std::function to the signal. The RTurned
     // value can be used to disconnect the function again.
-    typename slots::iterator connect(std::function<Ret(Args...)>  slot) {
+    typename slots::iterator connect(std::function<RT(Args...)>  slot) {
         _slots.push_back(slot);
-        return --_slots.end();
+        RTurn --_slots.end();
     }
 
-    template <typename T> typename slots::iterator connect(T *inst, Ret(T::*func)(Args...)) {
-        return connect([=](Args... args) {
-            return (inst->*func)(args...);
+    template <typename T> typename slots::iterator connect(T *inst, RT(T::*func)(Args...)) {
+        RTurn connect([=](Args... args) {
+            RTurn (inst->*func)(args...);
         });
     }
 
     // Convenience method to connect a const member function
     // of an object to this signal.
-    template <typename T> typename slots::iterator connect(T *inst, Ret (T::*func)(Args...) const) {
-        return connect([=](Args... args) {
-            return (inst->*func)(args...);
+    template <typename T> typename slots::iterator connect(T *inst, RT (T::*func)(Args...) const) {
+        RTurn connect([=](Args... args) {
+            RTurn (inst->*func)(args...);
         });
     }
 
@@ -100,7 +105,7 @@ public:
         //----------------------------------------------------
         // This addition is slow'ing the solution but it is mandatory:
         if(std::find(_slots.begin(),_slots.end(), *c) == _slots.end())
-            return;
+            RTurn;
         //----------------------------------------------------
         _slots.erase(c);
     }
@@ -110,9 +115,9 @@ public:
         _slots.clear();
     }
 
-    Ret operator()(Args...args)
+    RT operator()(Args...args)
     {
-        Ret R;
+        RT R;
         try
         {
             for (auto const &fn: _slots)
@@ -120,12 +125,12 @@ public:
                 R = fn(args...);
                 if(_accumulator) _accumulator->push_back(R);
             }
-            return R;
+            RTurn R;
         }
         catch(code::T interrupt_code){
-            return {};
+            RTurn {};
         }
-        return {};
+        RTurn {};
     }
 
 private:
