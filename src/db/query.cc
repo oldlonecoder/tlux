@@ -1,3 +1,4 @@
+#include "tuxic/db/query.h"
 /***************************************************************************
 *   Copyright (C) 2005/2023 by Serge Lussier                              *
 *   2005: (bretzel@teaccweb.homelinux.net)                                  *
@@ -18,7 +19,20 @@
 *   Free Software Foundation, Inc.,                                       *
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
+namespace tux::db
+{
+
+query::query():object(){}
+query::query(query&& Q):object(Q) noexcept
+{
+
+}
+
+query::query(const query& Q);
 
 
-
-
+query tux::db::query::operator<<(db::table *atbl)
+{
+    return query();
+}
+}
