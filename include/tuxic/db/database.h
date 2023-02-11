@@ -27,22 +27,22 @@
 #include<tuxic/db/table.h>
 #include<tuxic/strbrk.h>
 
-#include<tuxic/teacc_signal.h>
+#include<tuxic/tux_signal.h>
 
 namespace tux::db {
 
 class  database : public object
 {
     sqlite3*    _file = nullptr;
-    object::list _entities;
+    object::list _tables;
     std::string _ext = ".data";
     static int sqlite3_callback(void *NotUsed, int argc, char **argv, char **azColName);
-    teacc_signal<int, char **, char **> callback_signal;
+    tux_signal<code::T, int, char **, char **> callback_signal;
 
 public:
 
 
-    database():object(){}
+    database():object(){} // Prevent the compiler to delete this constructor by the compiler when " = default;"
     database(object* aparent, const std::string& aid, const std::string& aext = ".data");
     ~database() override;
 
@@ -50,9 +50,7 @@ public:
     code::T create();
     code::T close();
     auto set_callback(teacc_signal<int, char **, char **>::slot cb)
-    {
-        return callback_signal.connect(cb);
-    }
+    { return callback_signal.connect(cb); }
 
     code::T execute_query(const std::string& aquery_string);
     table& operator [](const std::string& eid);
