@@ -1,4 +1,4 @@
-#project(tuxic VERSION 0.0.1 LANGUAGES CXX)
+#project(tlux VERSION 0.0.1 LANGUAGES CXX)
 
 
 include(GNUInstallDirs)
@@ -21,8 +21,8 @@ add_library(
         include/${PROJECT_NAME}/strbrk.h           src/strbrk.cc
         include/${PROJECT_NAME}/object.h           src/object.cc
         include/${PROJECT_NAME}/stml/text.h        src/stml/text.cc
-#        include/${FrameWorkName}/db/entity.h        src/db/entity.cc
-#        include/${FrameWorkName}/db/database.h      src/db/database.cc
+        include/${PROJECT_NAME}/db/table.h        src/db/table.cc
+        include/${PROJECT_NAME}/db/database.h      src/db/database.cc
 
 )
 

@@ -20,7 +20,7 @@
  */
 
 
-//#include<tuxic/dlconfig.h>
+//#include<tlux/dlconfig.h>
 #include <string>
 #include <vector>
 

@@ -20,7 +20,7 @@
  ***************************************************************************/
 
 #pragma once
-#include <tuxic/stracc.h>
+#include <tlux/stracc.h>
 #include <string_view>
 
 namespace tux

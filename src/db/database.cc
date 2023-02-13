@@ -18,9 +18,9 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include<tuxic/db/database.h>
+#include<tlux/db/database.h>
 #include <unistd.h>
-#include<tuxic/diagnostic.h>
+#include<tlux/diagnostic.h>
 
 
 namespace tux::db

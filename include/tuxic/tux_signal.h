@@ -28,7 +28,7 @@
 #pragma once
 
 
-#include <tuxic/diagnostic.h>
+#include <tlux/diagnostic.h>
 
 // ------- copied from, intellectual proprietary to:
 // https://schneegans.github.io/tutorials/2015/09/20/signal-slot :
@@ -40,7 +40,7 @@ namespace tux
 
 
 /*!
-    @brief Thread non-safe slignal-slots.
+    @brief Thread non-safe signal-slots.
 
     @note typename RT must be default-constructible.
 
@@ -76,27 +76,27 @@ public:
             _id         = std::move(other._id);
             _accumulator= std::move(other._accumulator);
         }
-        RTurn *this;
+        return *this;
     }
 
-    // Connects a std::function to the signal. The RTurned
+    // Connects a std::function to the signal. The returned
     // value can be used to disconnect the function again.
     typename slots::iterator connect(std::function<RT(Args...)>  slot) {
         _slots.push_back(slot);
-        RTurn --_slots.end();
+        return --_slots.end();
     }
 
     template <typename T> typename slots::iterator connect(T *inst, RT(T::*func)(Args...)) {
-        RTurn connect([=](Args... args) {
-            RTurn (inst->*func)(args...);
+        return connect([=](Args... args) {
+            return (inst->*func)(args...);
         });
     }
 
     // Convenience method to connect a const member function
     // of an object to this signal.
     template <typename T> typename slots::iterator connect(T *inst, RT (T::*func)(Args...) const) {
-        RTurn connect([=](Args... args) {
-            RTurn (inst->*func)(args...);
+        return connect([=](Args... args) {
+            return (inst->*func)(args...);
         });
     }
 
@@ -105,7 +105,7 @@ public:
         //----------------------------------------------------
         // This addition is slow'ing the solution but it is mandatory:
         if(std::find(_slots.begin(),_slots.end(), *c) == _slots.end())
-            RTurn;
+            return;
         //----------------------------------------------------
         _slots.erase(c);
     }
@@ -125,12 +125,12 @@ public:
                 R = fn(args...);
                 if(_accumulator) _accumulator->push_back(R);
             }
-            RTurn R;
+            return R;
         }
         catch(code::T interrupt_code){
-            RTurn {};
+            return {};
         }
-        RTurn {};
+        return {};
     }
 
 private:

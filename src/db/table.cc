@@ -1,5 +1,5 @@
 
-#include<tuxic/db/table.h>
+#include<tlux/db/table.h>
 
 
 namespace tux::db

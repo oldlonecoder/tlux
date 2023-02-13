@@ -22,8 +22,8 @@
 #pragma once
 //#include <tux/object.h>
 #include <thread>
-#include <tuxic/tux_signal.h>
-#include <tuxic/diagnostic.h>
+#include <tlux/tux_signal.h>
+#include <tlux/diagnostic.h>
 
 
 //#include <tux/db/database.h>

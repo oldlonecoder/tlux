@@ -36,9 +36,9 @@
 #include <string_view>
 #include <chrono>
 #include <stack>
-#include <tuxic/textattr.h>
-#include <tuxic/utf/Icons.h>
-#include <tuxic/utf/accents.fr.h>
+#include <tlux/textattr.h>
+#include <tlux/utf/Icons.h>
+#include <tlux/utf/accents.fr.h>
 #include <string_view>
 
 

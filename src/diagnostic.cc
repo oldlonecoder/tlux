@@ -2,9 +2,9 @@
 // Created by oldlonecoder on 1/27/23.
 //
 
-#include "tuxic/diagnostic.h"
-#include "tuxic/application.h"
-#include "tuxic/stml/text.h"
+#include "tlux/diagnostic.h"
+#include "tlux/application.h"
+#include "tlux/stml/text.h"
 
 //
 // Created by oldlonecoder on 1/27/23.

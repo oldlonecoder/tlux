@@ -24,10 +24,10 @@
 
 #pragma once
 
-#include<tuxic/db/table.h>
-#include<tuxic/strbrk.h>
+#include<tlux/db/table.h>
+#include<tlux/strbrk.h>
 
-#include<tuxic/tux_signal.h>
+#include<tlux/tux_signal.h>
 
 namespace tux::db {
 

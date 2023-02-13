@@ -30,11 +30,11 @@
 // Get rid of obsolete include guard use this instead! :
 #pragma once
 // ----------------------------------
-#include <tuxic/object.h>
-#include <tuxic/textattr.h>
-#include <tuxic/utf/Icons.h>
+#include <tlux/object.h>
+#include <tlux/textattr.h>
+#include <tlux/utf/Icons.h>
 #include <map>
-#include <tuxic/geometry.h>
+#include <tlux/geometry.h>
 
 
 

@@ -1,7 +1,5 @@
-# tuxic
-* C++ ancient 1988-esque "tuxic" code using some gems from modern c++-11/20 easiness and other minimal amount of STL goodies.
-    * And I have to admit that std::function, however, is a gem I can't live without
-
+# tlux
+* C++ general purpose 1988-esque code-style and some gems from modern c++-11/20 easiness of STL goodies.
 
 #### By order of dependancy:
 * utf       : Basic glyph support. ( beware: not utf-* standard, using litteraly ...hardcoded const char* )
@@ -15,7 +13,3 @@
 * smtl::text: Basic simple markup text utility using the stuff provided by this project.
 * tux_signal: Basic signal-slots, from https://schneegans.github.io/tutorials/2015/09/20/signal-slot,
               adapted to this project specifics.
-
---- I am a "tuxic" old lone coder.
-
--- more to come...

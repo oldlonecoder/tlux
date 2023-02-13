@@ -23,7 +23,7 @@
 
 
 #pragma once
-#include<tuxic/object.h>
+#include<tlux/object.h>
 
 
 namespace tux::db

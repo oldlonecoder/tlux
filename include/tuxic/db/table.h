@@ -23,9 +23,9 @@
 
 
 #pragma once
-#include<tuxic/object.h>
+#include<tlux/object.h>
 #include <sqlite3.h>
-#include<tuxic/diagnostic.h>
+#include<tlux/diagnostic.h>
 
 namespace tux::db
 {
