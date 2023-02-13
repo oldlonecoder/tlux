@@ -40,6 +40,8 @@ application::application():object()
 application::~application()
 {
     application::_self = nullptr;
+    diagn.codes_data.clear();
+    diagn.types_data.clear();
     //if(_regitery) delete _regitery;
 }
 

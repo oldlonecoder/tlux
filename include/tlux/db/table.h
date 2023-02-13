@@ -25,70 +25,11 @@
 #pragma once
 #include<tlux/object.h>
 #include <sqlite3.h>
-#include<tlux/diagnostic.h>
+#include <tlux/db/field.h>
 
 namespace tux::db
 {
 
-
-
-class field: public object
-{
-    std::string _description="no description";
-    object* ref_table = nullptr;
-    field*  ref_field = nullptr;
-
-public:
-    enum type:uint8_t {
-        Serial, ///< AUTO_INCREMENT
-        Integer,
-        String,
-        Text,
-        Password,
-        Binary,
-        Date,
-        Stamp,
-        Unset
-    };
-
-
-    static constexpr uint8_t Primary   = 1;
-    static constexpr uint8_t Reference = 2;
-    static constexpr uint8_t Unique    = 4;
-    static constexpr uint8_t Null      = 8;
-
-private:
-    friend class table;
-    field::type _type = field::type::Unset;
-    int  _len = 0;
-
-    uint8_t _attr = 0;
-
-
-public:
-    field() = default;
-    field(object* atable, const std::string& aid, field::type atype);
-    field(const std::string& aid, field::type atype, uint8_t aconstrain);
-    field(field&& af)noexcept;
-    field(const field& af);
-    field& operator=(field&& af)noexcept;
-    field& operator=(const field& af);
-
-    bool is_primary_key() const { return _attr & field::Primary; } ///< field::primary_key() = true;
-    void set_primary() { _attr |= Primary; }
-    void set_null(bool s);
-    bool is_null(bool s) const  { return _attr & field::Null}
-    void set_foreign(bool s);
-    bool is_foreign() const { return _attr & field::Reference; }
-    void set_length(int l)   { _len = l; }
-
-    code::T attributes_text(stracc& qacc) const;
-    code::T set_foreign_key(field& aref_field);
-
-    code::T text(stracc& qacc) const;
-    code::T sql_type(stracc& qacc) const;
-    operator bool() const{ return _type != field::type::Unset; }
-};
 
 
 

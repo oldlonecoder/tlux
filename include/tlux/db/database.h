@@ -49,7 +49,7 @@ public:
     code::T open();
     code::T create();
     code::T close();
-    auto set_callback(teacc_signal<int, char **, char **>::slot cb)
+    auto set_callback(tux_signal<code::T, int, char **, char **>::slot cb)
     { return callback_signal.connect(cb); }
 
     code::T execute_query(const std::string& aquery_string);

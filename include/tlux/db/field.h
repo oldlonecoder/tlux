@@ -24,7 +24,8 @@
 
 #pragma once
 #include<tlux/object.h>
-
+//#include <sqlite3.h>
+#include<tlux/diagnostic.h>
 
 namespace tux::db
 {
@@ -34,7 +35,7 @@ class field : public object
     std::string _label="field";
     object* ref_table = nullptr;
     field*  ref_field = nullptr;
-
+    int _len = 0;
     std::vector<uint8_t> _rows;  ///< in case field needs to hold data, then here it is.
 public:
     enum type:uint8_t {
@@ -65,11 +66,32 @@ public:
     ~field()  override;
 
     field(field&& f) noexcept;
-    field(const field& f) noexcept;
+    field(const field& f);
+
+    field(object* atable, const std::string& aid, field::type atype, uint8_t attr = 0);
+    field(const std::string& aid, field::type atype, uint8_t attr = 0);
+
+
+
 
     field& operator = (field&& f)noexcept;
-    field& operator = (const field& f)noexcept;
+    field& operator = (const field& f);
     field& operator = (field& f);
+
+    bool is_primary_key() const { return A & field::Primary; } ///< field::primary_key() = true;
+    void set_primary() { A |= field::Primary; }
+    void set_null(bool s);
+    bool is_null(bool s) const  { return A & field::Null;}
+    void set_foreign(bool s);
+    bool is_foreign() const { return A & field::Reference; }
+    void set_length(int l)   { _len = l; }
+
+    code::T attributes_text(stracc& qacc) const;
+    code::T set_foreign_key(field& aref_field);
+
+    code::T text(stracc& qacc) const;
+    code::T sql_type(stracc& qacc) const;
+    operator bool() const{ return T != field::type::Unset; }
 
 };
 
