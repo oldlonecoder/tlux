@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include <table.h>
+#include <tlux/db/table.h>
 
 
 namespace tux::db
