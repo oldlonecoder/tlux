@@ -6,6 +6,7 @@
 #include "tlux/application.h"
 #include "tlux/stml/text.h"
 
+
 //
 // Created by oldlonecoder on 1/27/23.
 //
@@ -487,6 +488,11 @@ void diagnostic::unindent()
     if(d._indent < 0 ) d._indent = 0;
 }
 
+bool diagnostic::empty()
+{
+    auto& d = application::diagnostic_instance();
+    return d.log_entries.empty();
+}
 
 diagnostic::log_entry &diagnostic::tail()
 {

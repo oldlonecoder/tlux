@@ -221,6 +221,7 @@ public:
     static void clear(std::function<void(diagnostic::log_entry& le)> fn);
     static void indent();
     static void unindent();
+    static bool empty();
 
 };
 

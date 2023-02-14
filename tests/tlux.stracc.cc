@@ -43,4 +43,5 @@ TEST_F(stracc_test, app_and_diagnostic)
         std::cerr << diagnostic::cc(e);
         //SCOPED_TRACE(diagnostic::cc(e).c_str());
     });
+    EXPECT_TRUE(diagnostic::empty()) << " truelly true";
 }
