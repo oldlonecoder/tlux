@@ -102,11 +102,11 @@ TEST_F(tlux_database, create_field)
         diagnostic::info() << "table name :'" << tux::color::Yellow << tbl->id() << tux::color::Reset << "' - add field :";
         tbl->add_field({"id", tux::db::field::Integer, tux::db::field::Primary});
         EXPECT_TRUE(tbl->field_by_id("id") != nullptr);
-        tbl->add_field({"type", tux::db::field::Integer});
+        tbl->add_field({"type", tux::db::field::Integer,tux::db::field::Null});
         EXPECT_TRUE(tbl->field_by_id("type") != nullptr);
-        tbl->add_field({"code", tux::db::field::Integer});
+        tbl->add_field({"code", tux::db::field::Integer,tux::db::field::Null});
         EXPECT_TRUE(tbl->field_by_id("code") != nullptr);
-        tbl->add_field({"content", tux::db::field::Text});
+        tbl->add_field({"content", tux::db::field::Text,tux::db::field::Null});
         EXPECT_TRUE(tbl->field_by_id("content") != nullptr);
         tux::stracc txt;
         auto r = tbl->text(txt);
