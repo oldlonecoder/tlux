@@ -46,21 +46,23 @@ public:
         Password,
         Binary,
         Date,
-        Stamp,
+        Time,
+        DateTime,
         Unset
     };
 
 
 
-    static constexpr uint8_t Primary   = 1;
-    static constexpr uint8_t Reference = 2;
-    static constexpr uint8_t Unique    = 4;
-    static constexpr uint8_t Null      = 8;
+    static constexpr uint8_t Primary    = 1;
+    static constexpr uint8_t Reference  = 2;
+    static constexpr uint8_t Unique     = 4;
+    static constexpr uint8_t Null       = 8;
+    static constexpr uint8_t DefaultTime    = 10;
+    static constexpr uint8_t DefaultStamp   = 20;
 
 private:
     field::type T = field::type::Unset;
     uint8_t     A = 0;
-
 public:
     field();
     ~field()  override;

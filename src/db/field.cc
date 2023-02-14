@@ -148,8 +148,9 @@ code::T field::sql_type(stracc& qacc) const
         case field::Binary:qacc<<  "bytea";break;
         case field::String:qacc << "VARCHAR(" << (_len ? _len : 50) << ")"; break;
         case field::Text:qacc << "text"; break;
-        case field::Date: qacc <<"date"; break;
-        case field::Stamp: qacc << "timestamp"; break;
+        case field::Date: qacc <<"text"; break;
+        case field::Time: qacc << "text"; break;
+        case field::DateTime: qacc << "text"; break;
         case field::Password: qacc << "varchar(120)"; break;
         //case field::Integer: qacc <<  "integer"; break;
         default: qacc << "integer"; break;

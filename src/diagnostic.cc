@@ -164,14 +164,19 @@ diagnostic::log_entry &diagnostic::log_entry::operator<<(code::T c)
     {
         case code::begin:
             diagnostic::indent();
+            indent = diagnostic::indentation();
             break;
         case code::end:
             diagnostic::unindent();
+            indent = diagnostic::indentation();
             break;
         case code::endl:
         {
             if(encode == textattr::format::ansi256)
+            {
                 str_acc << '\n';
+                str_acc.fill(0x20, indent*4);
+            }
             else
                 if(encode == textattr::format::html)
                     str_acc << "<br />";
@@ -422,11 +427,7 @@ std::string diagnostic::cc(const diagnostic::log_entry &a_entry)
         //Get the color pair from the application DB for the given code::type:
         str << color::White << '[' << p <<  Icon::Data[icon] <<  code::text(a_entry.typ) << color::White << "] ";
     }
-    else
-    {
-        // code == output:
-        str << ind;
-    }
+
     auto const& loc = a_entry.loc;
 
     if(loc)
@@ -478,7 +479,8 @@ void diagnostic::clear(std::function<void(diagnostic::log_entry &le)> fn)
 
 void diagnostic::indent()
 {
-    ++application::diagnostic_instance()._indent;
+    auto& d = application::diagnostic_instance();
+    ++d._indent;
 }
 
 void diagnostic::unindent()
