@@ -110,9 +110,6 @@ code::T database::create()
     diagnostic::test() << code::end << code::ok << "Now sending the database creation query to sqlite:";// << code::endl;
 
     auto r = execute_query(str());
-
-
-
     return code::accepted;
 }
 

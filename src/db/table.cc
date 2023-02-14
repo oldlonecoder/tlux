@@ -3,6 +3,7 @@
 
 
 
+
 namespace tux::db
 {
 static field null_field = {};
@@ -83,6 +84,15 @@ field &table::query_field_by_name(const std::string &f_id)
             return *(f->as<field>());
 
     return null_field;
+}
+
+field *table::field_by_id(const std::string &fname)
+{
+        for(auto* f : _children)
+            if(f->id() == fname)
+                return (f->as<field>());
+
+    return &null_field;
 }
 
 code::T table::set_unique(stracc::list fields)

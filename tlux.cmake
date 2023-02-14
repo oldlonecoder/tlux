@@ -21,8 +21,8 @@ add_library(
         include/${PROJECT_NAME}/strbrk.h           src/strbrk.cc
         include/${PROJECT_NAME}/object.h           src/object.cc
         include/${PROJECT_NAME}/stml/text.h        src/stml/text.cc
-        include/${PROJECT_NAME}/db/field.h        src/db/field.cc
-        include/${PROJECT_NAME}/db/table.h        src/db/table.cc
+        include/${PROJECT_NAME}/db/field.h         src/db/field.cc
+        include/${PROJECT_NAME}/db/table.h         src/db/table.cc
         include/${PROJECT_NAME}/db/database.h      src/db/database.cc
 
 )

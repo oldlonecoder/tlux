@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <tlux/application.h>
 
-class master_test : public ::testing::Test
+class tlux_diagnostic : public ::testing::Test
 {
 
 
@@ -15,25 +15,18 @@ protected:
 
 
 
-void master_test::SetUp()
+void tlux_diagnostic::SetUp()
 {
     app.init(0,nullptr);
 
 }
 
-void master_test::TearDown()
+void tlux_diagnostic::TearDown()
 {
 
 }
 
-TEST_F(master_test, assign_stracc)
-{
-    str = "Jello, cruel world.\n";
-    EXPECT_EQ(str(), "Jello, cruel world.\n");
-}
-
-
-TEST_F(master_test, app_and_diagnostic)
+TEST_F(tlux_diagnostic, diagnostic_instance_and_clear)
 {
     using tux::diagnostic;
     using tux::code;
