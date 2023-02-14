@@ -12,19 +12,19 @@ FetchContent_MakeAvailable(googletest)
 add_library(GTest::GTest INTERFACE IMPORTED)
 target_link_libraries(GTest::GTest INTERFACE gtest_main)
 
-add_executable(tlux.stracc tlux.stracc.cc)
+add_executable(tlux_master tlux_master.cc)
 
 
-target_include_directories(tlux.stracc PUBLIC
+target_include_directories(tlux_master PUBLIC
     "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
 )
 
-target_link_libraries(tlux.stracc PRIVATE tlux GTest::GTest )
+target_link_libraries(tlux_master PRIVATE tlux GTest::GTest )
 
-add_dependencies(tlux.stracc tlux)
+add_dependencies(tlux_master tlux)
 
 include(GoogleTest)
 
-GTEST_ADD_TESTS( tlux.stracc "" AUTO )
+GTEST_ADD_TESTS( tlux_master "" AUTO )
 
-add_test(NAME tlux COMMAND tlux.stracc)
+add_test(NAME tlux COMMAND tlux_master)
