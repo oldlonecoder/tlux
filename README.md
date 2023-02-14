@@ -5,25 +5,25 @@
 
 This project, exclusively under linux, is a set of basic tools for my other projects that depend on these.
 I try ==not== to depend on third party tools, hence this repository.
+***
 GCC minimum version requirement for g++ is 11.2 (c++17 and early c++20 support)
 ***
-* "tux" is the root namespace of this repository, though I know that the name ==tux== is used everywhere, so in this project as well ;)
+*"tux" is the root namespace of this repository, though I know that the name "tux" is used everywhere, so in this project as well ;)
 ***
 
 #### By order of dependancy:
 utf
-: Basic glyph support. ( beware: not utf-* standard, using litteraly ...hardcoded const char* )
-              For now it is french accents and some glyphs from the awesome (nerd) fonts.
+: Basic glyph support. ( beware: not utf-* standard. Using hardcoded const char* ...litteraly) For now it is french accents and some (growing list of) glyphs from the (nerd) fonts.
 
 textattr
-: Define and manage everything about text attributes
-    * color-pairs -  I try to support ansi256 and html encoding.
+: Define and manage everything about text attributes and color-pairs
+    *I in the way to support ansi256 (console/terminal) and html encoding.
 
 stracc
 : "Composition class", holds instance of a std::string as (input) accumulator
 
 object
-: OOP... classical object->parent->children relational design. (std::smart pointers are NOT welcome here)
+: OOP... classic object->parent->children relational design. (std::smart pointers are NOT very welcome here)
 
 strbrk
 : Using string_view and creates array of tokens using provided or default separators
@@ -48,7 +48,7 @@ application
     * messaging
     * central loop, ...
 
-databse
+database
 : Very specific and basic sqlite3  support
     * field class
     * table class
