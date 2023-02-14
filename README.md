@@ -20,7 +20,7 @@ textattr
     * color-pairs -  I try to support ansi256 and html encoding.
 
 stracc
-: Holds instance of a std::string as (input) accumulator
+: "Composition class", holds instance of a std::string as (input) accumulator
 
 object
 : OOP... classical object->parent->children relational design. (std::smart pointers are NOT welcome here)
