@@ -17,10 +17,10 @@ utf
 
 textattr
 : Define and manage everything about text attributes and color-pairs
-    *I in the way to support ansi256 (console/terminal) and html encoding.
+I am in the way to support ansi256 (console/terminal) and html encoding.
 
 stracc
-: "Composition class", holds instance of a std::string as (input) accumulator
+: "Composition class", holds instance of a std::string as (input convertion goodies) accumulator
 
 object
 : OOP... classic object->parent->children relational design. (std::smart pointers are NOT very welcome here)
