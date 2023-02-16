@@ -165,15 +165,15 @@ code::T field::sql_type(stracc& qacc) const
     stracc str;
     switch(T)
     {
-        case field::Binary:qacc<<  "bytea";break;
+        case field::Binary:qacc<<  "BLOB";break;
         case field::String:qacc << "VARCHAR(" << (_len ? _len : 50) << ")"; break;
-        case field::Text:qacc << "text"; break;
-        case field::Date: qacc <<"text"; break;
-        case field::Time: qacc << "text"; break;
-        case field::DateTime: qacc << "text"; break;
-        case field::Password: qacc << "varchar(120)"; break;
+        case field::Text:qacc << "TEXT"; break;
+        case field::Date: qacc <<"TEXT"; break;
+        case field::Time: qacc << "TEXT"; break;
+        case field::DateTime: qacc << "TEXT"; break;
+        case field::Password: qacc << "VARCHAR(120)"; break;
         //case field::Integer: qacc <<  "integer"; break;
-        default: qacc << "integer"; break;
+        default: qacc << "INTEGER"; break;
     }
 
     return attributes_text(qacc);

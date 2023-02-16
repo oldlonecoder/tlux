@@ -144,7 +144,7 @@ TEST_F(tlux_database, database_do_create)
         tbl->add_field({"code", tux::db::field::Integer, tux::db::field::Null});
         EXPECT_TRUE(tbl->field_by_id("code") != nullptr);
         tbl->add_field({"stamp", tux::db::field::Time, tux::db::field::Null|tux::db::field::DefaultStamp});
-        tbl->add_field({"content", tux::db::field::Text,tux::db::field::Null});
+        tbl->add_field({"content", tux::db::field::Binary,tux::db::field::Null});
         EXPECT_TRUE(tbl->field_by_id("content") != nullptr);
         tux::stracc txt;
         auto r = tbl->text(txt);
