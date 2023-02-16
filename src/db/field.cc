@@ -78,7 +78,6 @@ field &field::operator=(field &&af) noexcept
     _len  = af._len;
     ref_table = af.ref_table;
     ref_field = af.ref_field;
-    A = af.A;
     return *this;
 }
 
@@ -113,7 +112,7 @@ field &field::operator=(const field &af)
 code::T field::attributes_text(stracc& qacc) const
 {
     if(!(A & field::Null))
-        qacc << " not null";
+        qacc << " NOT NULL ";
 
     if(A & field::Reference)
     {
@@ -125,8 +124,29 @@ code::T field::attributes_text(stracc& qacc) const
         if(A & field::Primary)
         {
             qacc << " PRIMARY KEY";
+            return code::accepted;
+        }
+        if(A & field::DefaultTime)
+        {
+            qacc << " DEFAULT (TIME('now', 'localtime'))";
+            return code::accepted;
+        }
+        else
+        {
+            if(A & field::DefaultDate)
+            {
+                qacc << " DEFAULT (DATE('now', 'localtime'))";
+                return code::accepted;
+            }
+            else
+            if(A & field::DefaultStamp)
+            {
+                qacc << " DEFAULT (DATETIME('now', 'localtime'))";
+                return code::accepted;
+            }
         }
     }
+
     return code::accepted;
 }
 /*!

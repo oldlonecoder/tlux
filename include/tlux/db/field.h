@@ -53,12 +53,13 @@ public:
 
 
 
-    static constexpr uint8_t Primary    = 1;
-    static constexpr uint8_t Reference  = 2;
-    static constexpr uint8_t Unique     = 4;
-    static constexpr uint8_t Null       = 8;
-    static constexpr uint8_t DefaultDate = 10;
-    static constexpr uint8_t DefaultStamp= 20;
+    static constexpr uint8_t Primary        = 1;
+    static constexpr uint8_t Reference      = 2;
+    static constexpr uint8_t Unique         = 4;
+    static constexpr uint8_t Null           = 8;
+    static constexpr uint8_t DefaultDate    = 0x10;
+    static constexpr uint8_t DefaultTime    = 0x20;
+    static constexpr uint8_t DefaultStamp   = 0x20;
 
 private:
     field::type T = field::type::Unset;

@@ -16,12 +16,13 @@ table::table(object *aparent, const std::string& aid):object(aparent, aid) {}
 
 code::T table::text(stracc &query_acc)
 {
-    query_acc << "CREATE TABLE " << id() << "(";
+    query_acc << "CREATE TABLE " << id() << "(\n";
     // Iterate fields and accumulate strings to str:
     for_each<field>([&query_acc](field& f, bool is_last_) -> bool {
         f.text(query_acc);
         if(!is_last_)
-            query_acc <<", ";
+            query_acc <<",";
+        query_acc << '\n';
         return true;
     });
     if(!_uniques.empty())
@@ -34,7 +35,7 @@ code::T table::text(stracc &query_acc)
             e ++;
             if(e != _uniques.end()) query_acc << ',';
         }
-        query_acc << ")";
+        query_acc << ")\n";
     }
     query_acc << ");";
     return 0;
