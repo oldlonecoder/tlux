@@ -128,7 +128,7 @@ TEST_F(tlux_database, database_do_create)
     using tux::db::database;
     using tux::diagnostic;
     using tux::code;
-
+    code::T r;
     diagnostic::test(sfnl) << code::begin << " create table 'log_entry'  and the fields:";
     diagnostic::output() << "new constructor:";
     db = new tux::db::database(nullptr, "diagnostic","db");
@@ -137,28 +137,31 @@ TEST_F(tlux_database, database_do_create)
         auto tbl = db->add_table("log_entry");
         EXPECT_TRUE(tbl != nullptr);
         diagnostic::info() << "table name :'" <<  tux::color::Yellow << tbl->id() << tux::color::Reset << "' - add field :";
+
         tbl->add_field({"id", tux::db::field::Integer,  tux::db::field::Primary});
-        EXPECT_TRUE(tbl->field_by_id("id") != nullptr);
         tbl->add_field({"type", tux::db::field::Integer, tux::db::field::Null});
-        EXPECT_TRUE(tbl->field_by_id("type") != nullptr);
         tbl->add_field({"code", tux::db::field::Integer, tux::db::field::Null});
-        EXPECT_TRUE(tbl->field_by_id("code") != nullptr);
         tbl->add_field({"stamp", tux::db::field::Time, tux::db::field::Null|tux::db::field::DefaultStamp});
         tbl->add_field({"content", tux::db::field::Binary,tux::db::field::Null});
+
+        EXPECT_TRUE(tbl->field_by_id("id") != nullptr);
+        EXPECT_TRUE(tbl->field_by_id("type") != nullptr);
+        EXPECT_TRUE(tbl->field_by_id("code") != nullptr);
         EXPECT_TRUE(tbl->field_by_id("content") != nullptr);
+
         tux::stracc txt;
-        auto r = tbl->text(txt);
+        r = tbl->text(txt);
         EXPECT_TRUE(!txt().empty());
-        diagnostic::info() << "table description:";
+        diagnostic::info() << "table description:" << code::end;
         diagnostic::output() << txt;
         diagnostic::output() << "create the database for real:";
         r = db->create();
-        EXPECT_EQ(r, code::accepted);
     }
     catch(tux::diagnostic::log_entry& e)
     {
         ;
     }
+    EXPECT_EQ(r, code::accepted) << "So creating the database failed.";
     diagnostic::info() << code::end << " check create done.";
      EXPECT_TRUE(!diagnostic::empty()) << "diagnostic entries empty?";
 

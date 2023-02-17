@@ -19,6 +19,7 @@ code::T table::text(stracc &query_acc)
     query_acc << "CREATE TABLE " << id() << "(\n";
     // Iterate fields and accumulate strings to str:
     for_each<field>([&query_acc](field& f, bool is_last_) -> bool {
+        query_acc << "    ";
         f.text(query_acc);
         if(!is_last_)
             query_acc <<",";
