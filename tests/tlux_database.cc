@@ -135,7 +135,7 @@ TEST_F(tlux_database, database_do_create)
     try{
         diagnostic::output() << code::ok << " now invoke add_table:";
         auto tbl = db->add_table("log_entry");
-        EXPECT_TRUE(tbl != nullptr);
+        ASSERT_TRUE(tbl != nullptr) << " db->add_table failed.";
         diagnostic::info() << "table name :'" <<  tux::color::Yellow << tbl->id() << tux::color::Reset << "' - add field :";
 
         tbl->add_field({"id", tux::db::field::Integer,  tux::db::field::Primary});
@@ -151,11 +151,14 @@ TEST_F(tlux_database, database_do_create)
 
         tux::stracc txt;
         r = tbl->text(txt);
-        EXPECT_TRUE(!txt().empty());
+        ASSERT_TRUE(!txt().empty()) << "table schema is empty.";
         diagnostic::info() << "table description:" << code::end;
         diagnostic::output() << txt;
         diagnostic::output() << "create the database for real:";
         r = db->create();
+        ASSERT_EQ(r, code::accepted) << " db->create did not throw, but failed";
+
+
     }
     catch(tux::diagnostic::log_entry& e)
     {
