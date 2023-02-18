@@ -126,6 +126,8 @@ TEST_F(tlux_database, database_do_create)
 {
     std::cout << "\n\n";
     using tux::db::database;
+    using tux::db::table;
+    using tux::db::field;
     using tux::diagnostic;
     using tux::code;
     code::T r;
@@ -156,16 +158,24 @@ TEST_F(tlux_database, database_do_create)
         diagnostic::output() << txt;
         diagnostic::output() << "create the database for real:";
 
-        tbl = db->add_table("attr_object");
+        tbl = db->add_table("object");
         ASSERT_TRUE(tbl != nullptr) << " db->add_table failed.";
         diagnostic::info() << "table name :'" <<  tux::color::Yellow << tbl->id() << tux::color::Reset << "' - add field :";
         (*tbl)
             << tux::db::field{"id",tux::db::field::Integer, tux::db::field::Primary}
             << tux::db::field{"obj_name", tux::db::field::Text,tux::db::field::Unique};
 
+        tbl = db->add_table("attributes");
+        ASSERT_TRUE(tbl != nullptr) << " db->add_table failed.";
+        diagnostic::info() << "table name :'" <<  tux::color::Yellow << tbl->id() << tux::color::Reset << "' - add field :";
+        (*tbl)
+            << field{"id", field::Integer,field::Primary}
+            << field{"bg", field::Integer}
+            << field{"fg", field::Integer};
+
+
         r = db->create();
         ASSERT_EQ(r, code::accepted) << " db->create did not throw, but failed";
-
 
     }
     catch(tux::diagnostic::log_entry& e)
