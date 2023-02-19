@@ -175,7 +175,7 @@ diagnostic::log_entry &diagnostic::log_entry::operator<<(code::T c)
             if(encode == textattr::format::ansi256)
             {
                 str_acc << '\n';
-                str_acc.fill(0x20, indent*4);
+                //str_acc.fill(0x20, indent);
             }
             else
                 if(encode == textattr::format::html)
@@ -286,7 +286,7 @@ code::T diagnostic::init()
 
 int diagnostic::indentation()
 {
-    return application::diagnostic_instance()._indent;
+    return application::diagnostic_instance()._indent*4;
 }
 
 diagnostic::log_entry &diagnostic::error(source_location &&loc_)
@@ -416,11 +416,13 @@ std::string diagnostic::cc(const diagnostic::log_entry &a_entry)
     auto& d = application::diagnostic_instance();
     auto [icon, p] = d[a_entry.typ];
     stracc str;
-    stracc ind = "";
+    stracc ind;
     ///@todo Setup indentation length ( in application config for ex. )
     if(a_entry.indent > 0)
-        ind.fill(0x20, a_entry.indent*4);
-
+    {
+        //std::cout << "log_entry::indentation: " << a_entry.indent << '\n';
+        ind.fill(0x20, a_entry.indent);
+    }
     str << ind;
     if(a_entry.typ != code::output)
     {
@@ -471,7 +473,7 @@ void diagnostic::clear(std::function<void(diagnostic::log_entry &le)> fn)
         if(fn)
             fn(e);
         else
-            std::cout << diagnostic::cc(e) << '\n';
+            std::cout << diagnostic::cc(e);
         e.clear();
     }
     d.log_entries.clear();
