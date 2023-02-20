@@ -243,7 +243,7 @@ template<typename T> stracc& stracc::_format(const T& _argv)
         return this->operator+=(_argv);
 
     stracc::format_data fmt = { _d };
-    char     buf[256];
+    char     buf[8192];
     std::memset(buf, 0, 200);
     //LFnl << "\n";
 
