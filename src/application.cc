@@ -71,7 +71,7 @@ code::T application::init(int argc, char** argv)
         {code::success,         {Icon::Success,         {color::LightGreen2       ,color::Reset }}},
         {code::rejected,        {Icon::ThumbDown,       {color::Orange5           ,color::Reset }}},
         {code::failed,          {Icon::Poop,            {color::DarkGoldenrod     ,color::Reset }}},
-        {code::empty,           {Icon::ArrowRight,      {color::Grey15            ,color::Reset }}},
+        {code::empty,           {Icon::ArrowRight,      {color::LighcoreateGrey   ,color::Reset }}},
         {code::full,            {Icon::SmallDot,        {color::White             ,color::Reset }}},
         {code::notempty,        {Icon::BigDot,          {color::White             ,color::Reset }}},
         {code::implemented,     {Icon::ArrowHeadRight,  {color::Lime              ,color::Reset }}},

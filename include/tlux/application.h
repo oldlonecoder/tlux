@@ -44,6 +44,26 @@ class application : public object
 
     code::T init_regitery();
 public:
+
+    struct envarg
+    {
+        static constexpr uint8_t Mandatory      = 0x1;
+        static constexpr uint8_t ValueRequired  = 0x2;
+
+        bool longswitch = false;
+
+        std::string descriptions;
+        std::string longa;
+        char        shorta;
+
+        //...
+        std::vector<std::string> value_list;
+        //...
+        using dictionary = std::map<std::string, envarg>;
+        int nargs       = 0;
+        uint8_t   conf  = 0;
+    };
+
     application();
     ~application() override;
 
