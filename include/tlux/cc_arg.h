@@ -39,8 +39,8 @@ class _argument
 public:
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
-    using list = std::vector<cc_arg>;
-    using iterator = cc_arg::list::iterator;
+    using list = std::vector<_argument*>;
+    using iterator = _argument::list::iterator;
     virtual code::T run() = 0;
 
     _argument(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
