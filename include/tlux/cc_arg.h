@@ -44,7 +44,7 @@ public:
     virtual code::T run() = 0;
 
     _argument(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
-    virtual _argument() {_args.clear();}
+    virtual ~_argument() {_args.clear();}
 
 };
 
