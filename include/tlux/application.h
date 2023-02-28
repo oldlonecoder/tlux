@@ -64,6 +64,7 @@ public:
         uint8_t   conf  = 0;
     };
 
+
     application();
     ~application() override;
 
@@ -71,10 +72,16 @@ public:
     virtual code::T run();
     virtual code::T terminate();
 
+    application& operator << (application::envarg&& arg);
+
+
     const stracc::list& args()  { return _args; }
     static application& self();
     static diagnostic& diagnostic_instance();
     static code::code_attribute_table& codes_data();
+private:
+    application::envarg::dictionary _envargs;
+
 };
 
 } // tux

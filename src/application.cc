@@ -125,6 +125,13 @@ code::T application::terminate()
     return _app_end();
 }
 
+application &application::operator << (application::envarg &&arg)
+{
+    _envargs[arg.longa] = std::move(arg);
+    return *this;
+}
+
+
 application &application::self()
 {
     if(!application::_self)
