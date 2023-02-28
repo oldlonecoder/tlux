@@ -1,16 +1,16 @@
-include (FetchContent)
+set(This tlux.app)
+
+add_executable(${This} ${This}.cc)
 
 
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        release-1.12.0
+target_include_directories(${This} PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
 )
 
+target_link_libraries(${This} PRIVATE tlux )
 
-FetchContent_MakeAvailable(googletest)
-add_library(GTest::GTest INTERFACE IMPORTED)
-target_link_libraries(GTest::GTest INTERFACE gtest_main)
+add_dependencies(${This} tlux)
 
-include(tlux_diagnostic.cmake)
-include(tlux_database.cmake)
+
+
+

@@ -42,7 +42,7 @@ application::~application()
     application::_self = nullptr;
     diagn.codes_data.clear();
     diagn.types_data.clear();
-    //if(_regitery) delete _regitery;
+
 }
 
 code::T application::init(int argc, char** argv)
@@ -125,11 +125,6 @@ code::T application::terminate()
     return _app_end();
 }
 
-application &application::operator << (application::envarg &&arg)
-{
-    _envargs[arg.longa] = std::move(arg);
-    return *this;
-}
 
 
 application &application::self()
@@ -150,6 +145,8 @@ code::code_attribute_table &application::codes_data()
 {
     return application::diagnostic_instance().codes_data;
 }
+
+
 
 
 } // tux

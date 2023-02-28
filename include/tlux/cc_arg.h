@@ -1,7 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2005/2023 by Serge Lussier                              *
- *   2005: (bretzel@tuxweb.homelinux.net)                                  *
+ *   2005: (bretzel@teaccweb.homelinux.net)                                *
  *   2023: lussier.serge@gmail.com, oldlonecoder@gmail.com                 *
+ *   2023: oldlonecoder@arknowledge.page                                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -20,58 +21,61 @@
  ***************************************************************************/
 
 #pragma once
-//#include <tux/object.h>
-#include <thread>
+
+//#include <tlux/diagnostic.h>
 #include <tlux/tux_signal.h>
-#include <tlux/diagnostic.h>
-#include <functional>
 
-
-//#include <tux/db/database.h>
 
 namespace tux {
 
 
-
-
-
-
-class application : public object
+class _argument
 {
-    std::thread _thid;
-    tux_signal<code::T> _app_start;
-    tux_signal<code::T> _app_end;
-    static application* _self;
-    diagnostic diagn;
-    stracc::list  _args;
-    //db::database* _regitery = nullptr;
-
-
-    code::T init_regitery();
+    int _required_args = 0;
+    stracc::list _args;
+    uint8_t _opt = 0;
+    std::string _opt_name;
+    char        _c=0;
 public:
+    static constexpr uint8_t Required = 0x01;
+    static constexpr uint8_t ValRequired = 0x01;
+    using list = std::vector<cc_arg>;
+    using iterator = cc_arg::list::iterator;
+    virtual code::T run() = 0;
 
-
-
-    application();
-    ~application() override;
-
-    virtual code::T init(int argc, char** argv);
-    virtual code::T run();
-    virtual code::T terminate();
-
-
-
-
-    const stracc::list& args()  { return _args; }
-    static application& self();
-    static diagnostic& diagnostic_instance();
-    static code::code_attribute_table& codes_data();
-
-protected:
-
+    _argument(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
+    virtual _argument() {_args.clear();}
 
 };
 
-} // tux
+
+template<typename T> class cc_arg: public _argument
+{
+
+    T* _user = nullptr;
+
+public:
+    using handler_t = code::T (T::*)(cc_arg<T>&);
+
+    cc_arg() = default;
+    cc_arg(cc_arg&&) noexcept = default;
+    cc_arg(const cc_arg&) noexcept = default;
+
+    cc_arg(T* user_, typename cc_arg::handler_t h, const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0 ):
+        _argument(opt_name_,letter_,require_narg),
+        _user(user_),
+        _handler(h)
+    {}
+
+    ~cc_arg() override {  }
+
+    cc_arg& operator = (cc_arg&&) noexcept = default;
+    cc_arg& operator = (const cc_arg&) = default;
+    inline int values_count() { return _args.size(); }
+private:
+    handler_t _handler = nullptr;
+};
+
+} // namespace tux
 
 

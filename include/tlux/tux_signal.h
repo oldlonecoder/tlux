@@ -81,8 +81,8 @@ public:
 
     // Connects a std::function to the signal. The returned
     // value can be used to disconnect the function again.
-    typename slots::iterator connect(std::function<RT(Args...)>  slot) {
-        _slots.push_back(slot);
+    typename slots::iterator connect(std::function<RT(Args...)>  slot_) {
+        _slots.push_back(slot_);
         return --_slots.end();
     }
 

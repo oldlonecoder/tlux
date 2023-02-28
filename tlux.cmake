@@ -24,7 +24,7 @@ add_library(
         include/${PROJECT_NAME}/db/field.h         src/db/field.cc
         include/${PROJECT_NAME}/db/table.h         src/db/table.cc
         include/${PROJECT_NAME}/db/database.h      src/db/database.cc
-
+        include/${PROJECT_NAME}/cc_arg.h           src/cc_arg.cc
 )
 
 
@@ -60,4 +60,5 @@ install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include
 )
+
 
