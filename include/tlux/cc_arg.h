@@ -28,28 +28,34 @@
 
 namespace tux {
 
+namespace cmd
+{
 
-class _argument
+
+class arg
 {
     int _required_args = 0;
     stracc::list _args;
     uint8_t _opt = 0;
     std::string _opt_name;
+    std::string _desc = "no descriptions";
     char        _c=0;
+
 public:
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
-    using list = std::vector<_argument*>;
-    using iterator = _argument::list::iterator;
+
+    using list = std::vector<arg*>;
+    using iterator = arg::list::iterator;
     virtual code::T run() = 0;
 
-    _argument(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
-    virtual ~_argument() {_args.clear();}
+    arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
+    virtual ~arg() {_args.clear();}
 
 };
 
 
-template<typename T> class cc_arg: public _argument
+template<typename T> class cc_arg: public arg
 {
 
     T* _user = nullptr;
@@ -62,7 +68,7 @@ public:
     cc_arg(const cc_arg&) noexcept = default;
 
     cc_arg(T* user_, typename cc_arg::handler_t h, const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0 ):
-        _argument(opt_name_,letter_,require_narg),
+        arg(opt_name_,letter_,require_narg),
         _user(user_),
         _handler(h)
     {}
@@ -72,8 +78,32 @@ public:
     cc_arg& operator = (cc_arg&&) noexcept = default;
     cc_arg& operator = (const cc_arg&) = default;
     inline int values_count() { return _args.size(); }
+    code::T run() override {
+        return code::notimplemented;
+    }
+
 private:
     handler_t _handler = nullptr;
+};
+
+}
+
+class cc_args
+{
+    cmd::arg::list _args;
+
+public:
+    cc_args() {}
+
+    ~cc_args();
+
+
+    code::T process_args(int argc, char** argv);
+
+    cc_args& operator << (cmd::arg* _arg);
+
+
+
 };
 
 } // namespace tux

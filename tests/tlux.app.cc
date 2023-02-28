@@ -9,7 +9,7 @@ namespace tux
 class tests : public application
 {
 
-    cc_arg<tests>::list _args;
+    cc_args _args;
 public:
 
     tests() = default;
@@ -18,29 +18,20 @@ public:
     code::T init(int argc, char** argv) override;
 
 private:
-    code::T setup_db(cc_arg<tests>& arg);
+    code::T setup_db(cmd::cc_arg<tests>& arg);
 };
 
 
-class ttt
-{
-public:
-    code::T setup_db(cc_arg<tests>& en);
-
-};
-
-ttt te;
 
 code::T tests::init(int argc, char **argv)
 {
     application::init(argc,argv);
-    _args.push_back(
-        cc_arg(this, &tests::setup_db, "dbname",(char)0,0,0 )
-    );
+    _args << new cmd::cc_arg<tests>(this, &tests::setup_db, "dbname",(char)0,0,0 );
+
     return code::notimplemented;
 }
 
-code::T tests::setup_db(cc_arg<tests> &arg)
+code::T tests::setup_db(cmd::cc_arg<tests> &arg)
 {
     return code::notimplemented;
 }
