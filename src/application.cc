@@ -37,6 +37,14 @@ application::application():object()
     diagn = diagnostic(this,"application::diagnostic");
 }
 
+application::application(int argc, char** argv): object()
+{
+    for (int a = 0; a < argc; a++)
+        _args.push_back(argv[a]);
+
+}
+
+
 application::~application()
 {
     application::_self = nullptr;
@@ -45,7 +53,7 @@ application::~application()
 
 }
 
-code::T application::init(int argc, char** argv)
+code::T application::init()
 {
 
     diagn.types_data = {
@@ -101,8 +109,6 @@ code::T application::init(int argc, char** argv)
 //        {code::weekday   ,      {Icon::Chronos ,        {color::White             ,color::Reset }}}
     };
 
-    for(int a = 0; a< argc; a++)
-        _args.push_back(argv[a]);
 
      (void)init_regitery();
     //...

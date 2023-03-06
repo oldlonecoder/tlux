@@ -24,7 +24,7 @@
 
 namespace tux {
 
-class  object
+class  TUXLIB object
 {
 
 

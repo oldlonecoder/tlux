@@ -28,7 +28,7 @@ namespace tux
 using std::string_view;
 using std::string;
 
-class strbrk
+class TUXLIB strbrk
 {
     std::string_view _d;
 
@@ -48,7 +48,7 @@ class strbrk
      //strbrk(string&&);
      ~strbrk() = default;
 
-     struct  token_t
+     struct TUXLIB  token_t
      {
          string_view::iterator mStart;
          string_view::iterator mEnd;
@@ -68,7 +68,7 @@ class strbrk
          std::string location();
      };
 
-     struct  config_data
+     struct TUXLIB  config_data
      {
          strbrk::token_t::list tokens;
          string_view delimiters;

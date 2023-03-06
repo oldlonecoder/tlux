@@ -51,7 +51,7 @@ namespace tux
 
 
 
-class  stracc final
+class TUXLIB stracc final
 {
     //decl_rttn
 

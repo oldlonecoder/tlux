@@ -20,12 +20,12 @@
  */
 
 
-//#include<tlux/dlconfig.h>
+#include<tlux/dlconf.h>
 #include <string>
 #include <vector>
 
 namespace tux {
-struct  Icon final
+struct TUXLIB  Icon final
 {
     using T = const char*;
     using Type = uint8_t;

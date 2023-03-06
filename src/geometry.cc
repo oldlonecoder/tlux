@@ -15,7 +15,7 @@ winbuffer &winbuffer::gotoxy(int x, int y)
 
 void winbuffer::set_geometry(int w, int h)
 {
-    r = rectangle<int>({{1,1},{1,1},w,h});
+    r = rectangle<int>{{1,1},{1,1},w,h};
 
     clear();
 }

@@ -41,7 +41,7 @@
 
 namespace tux {
 
-struct  source_location
+struct  TUXLIB source_location
 {
     int line = 0;
     std::string_view filename = "";
@@ -54,7 +54,7 @@ struct  source_location
 
 
 
-struct  code
+struct  TUXLIB code
 {
     using T = uint16_t;
     using type = uint8_t;
@@ -128,7 +128,7 @@ struct  code
 };
 
 
-class  diagnostic : public object
+class  TUXLIB diagnostic : public object
 {
     code::type_attribute_table types_data;
     code::code_attribute_table codes_data;
@@ -138,7 +138,7 @@ class  diagnostic : public object
 public:
 
 
-    struct  log_entry
+    struct  TUXLIB log_entry
     {
         using component_list = std::vector<std::string>;
         using memory = std::vector<diagnostic::log_entry>;

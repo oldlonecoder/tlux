@@ -40,6 +40,7 @@
 #include <stack>
 #include <unordered_map>
 #include <map>
+#include <tlux/dlconf.h>
 
 
 
@@ -48,7 +49,7 @@
 namespace tux
 {
 
-struct  color final
+struct TUXLIB  color final
 {
     //decl_rttn
 
@@ -316,13 +317,13 @@ enum type : uint16_t
 
 
 
-class  textattr
+class  TUXLIB textattr
 {
     //decl_rttn
 
 public:
 
-    struct  pair
+    struct  TUXLIB pair
     {
         color::type fg = color::White;
         color::type bg = color::Grey11;
@@ -348,7 +349,7 @@ public:
 };
 
 
-struct  color_data
+struct TUXLIB  color_data
 {
     color::type _enum = color::Reset;
     std::string_view  Name = " ";
@@ -378,12 +379,12 @@ public:
 
 
 
-inline std::ostream&  operator << (std::ostream& stream_, color::type c_)
+inline TUXLIB std::ostream&   operator << (std::ostream& stream_, color::type c_)
 {
     return stream_ << attr<textattr::format::ansi256>::fg(c_);
 }
 
-struct  attr_item
+struct  TUXLIB attr_item
 {
     std::string id;
     textattr::pair p;
@@ -394,7 +395,7 @@ struct  attr_item
 
 };
 
-struct  attribute_list
+struct TUXLIB  attribute_list
 {
     std::string id;
     attr_item::list items;

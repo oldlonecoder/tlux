@@ -53,7 +53,7 @@ namespace tux
 using std::string;
 using std::string_view;
 
-class  text_tokenizer
+class TUXLIB text_tokenizer
 {
     std::string_view _d;
 
@@ -73,7 +73,7 @@ public:
     //text_tokenizer(string&&);
     ~text_tokenizer() = default;
 
-    struct  token_t
+    struct TUXLIB  token_t
     {
         string_view::iterator mStart;
         string_view::iterator mEnd;
@@ -93,7 +93,7 @@ public:
         std::string location();
     };
 
-    struct  config_data
+    struct TUXLIB  config_data
     {
         text_tokenizer::token_t::list tokens;
         string_view delimiters;
@@ -143,7 +143,7 @@ private:
 
 };
 
-class  text
+class  TUXLIB text
 {
     std::string _d;
     textattr::format _f = textattr::format::ansi256;
@@ -169,7 +169,9 @@ public:
         ~text();
         code::T compile();
         code::T operator >> (std::string&);
-        struct  token_data
+        std::string operator << (const std::string& input_str);
+
+        struct  TUXLIB token_data
         {
             enum class type : uint8_t
             {
@@ -260,7 +262,7 @@ public:
 
         };
 
-        struct  attribute
+        struct TUXLIB  attribute
         {
             // ============ Indiquer c'est quoi qu'il faut lire!!!!!! ======================
             color::type _fg  = color::Black;

@@ -23,7 +23,7 @@
 
 #pragma once
 
-
+#include <tlux/dlconf.h>
 #include <vector>
 #include <string>
 #include <string_view>
@@ -136,7 +136,7 @@ namespace tux
 {
 
 
-struct  Accent final
+struct TUXLIB Accent final
 {
 using T = const char*;
 

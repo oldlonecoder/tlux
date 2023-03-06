@@ -407,7 +407,8 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
 
     text::~text()
     {
-
+        _d.clear();
+        _attributes.clear();
     }
 
 
@@ -430,7 +431,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
             if (toupper(*crs) != toupper(*rtxt)) continue;
 
             while (*rtxt && *crs && (toupper(*crs) == toupper(*rtxt))) { ++crs; ++rtxt; }
-            diagnostic::debug(sfnl) << "Token.L = [" << color::Yellow << TokenRef.L << color::Reset << "]:";
+            //diagnostic::debug(sfnl) << "Token.L = [" << color::Yellow << TokenRef.L << color::Reset << "]:";
             if (!*rtxt)
             {   // fin de Token.L :
                 if (TokenRef.T == token_data::type::AttrCmd)
@@ -443,7 +444,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
                     }
                 } // Il reste les autres non-espace comme les ponctuations, symboles...
                 --crs; // Replacer crs sur le dernier caractere du Token.
-                diagnostic::debug(sfnl) << " Scanned to :'" << color::Yellow << *crs << color::Reset << '\'';
+                //diagnostic::debug(sfnl) << " Scanned to :'" << color::Yellow << *crs << color::Reset << '\'';
                 TokenRef._location.begin = Start;
                 TokenRef._location.end = crs; // Fin du Token
 
@@ -493,13 +494,14 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         text::compiler Parse{ *this };
         auto A = Parse.execute();
 
-        diagnostic::debug(sfnl) << " Number of compiled Attribute(s) :" << _attributes.size();
-        for (auto const& A : _attributes)
+        diagnostic::debug(sfnl) << code::begin << " Number of compiled Attribute(s) :" << _attributes.size();
+        for (auto const& Att : _attributes)
         {
-            diagnostic::info(sfnl) << A();
-            diagnostic::output() << color::White << "Fg:" << color::Yellow << static_cast<int>(A._fg) << color::White << ", Bg:" << color::Yellow << static_cast<int>(A._bg);
-            diagnostic::output() << color::White << "Icon:" << color::Yellow << static_cast<int>(A._icn);
+            diagnostic::info(sfnl) << Att();
+            diagnostic::output() << color::White << "Fg:" << color::Yellow << static_cast<int>(Att._fg) << color::White << ", Bg:" << color::Yellow << static_cast<int>(Att._bg);
+            diagnostic::output() << color::White << "Icon:" << color::Yellow << static_cast<int>(Att._icn);
         }
+        diagnostic::debug(sfnl) << code::end << ";";
         return code::accepted;
     }
 
@@ -537,7 +539,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
                 else
                 if (A._assign._for)
                 {
-                    AttrStr = _f == textattr::format::ansi256 ? attr<textattr::format::ansi256>::bg(A._fg) : attr<textattr::format::html>::bg(A._fg);
+                    AttrStr = _f == textattr::format::ansi256 ? attr<textattr::format::ansi256>::fg(A._fg) : attr<textattr::format::html>::fg(A._fg);
                     Out += AttrStr;
                 }
             }
@@ -562,6 +564,16 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
             Out += *r++;
         }
         return code::ok;
+    }
+
+    std::string text::operator<<(const std::string& input_str)
+    {
+        _d = input_str;
+        std::string output;
+        auto r = compile();
+        if (r > 2) return "";
+        (*this) >> output;
+        return output;
     }
 
     void text::push_attribute(text::attribute Attr)

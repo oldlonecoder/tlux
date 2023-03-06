@@ -1,7 +1,8 @@
 /***************************************************************************
  *   Copyright (C) 2005/2023 by Serge Lussier                              *
- *   2005: (bretzel@tuxweb.homelinux.net)                                  *
+ *   2005: (bretzel@teaccweb.homelinux.net)                                  *
  *   2023: lussier.serge@gmail.com, oldlonecoder@gmail.com                 *
+ *   2023: oldlonecoder@arknowledge.page                                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,58 +20,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+
 #pragma once
-//#include <tux/object.h>
-#include <thread>
-#include <tlux/tux_signal.h>
-#include <tlux/diagnostic.h>
-#include <functional>
+
+#include <tlux/stml/text.h>
+#include <tlux/application.h>
 
 
-//#include <tux/db/database.h>
-
-namespace tux {
-
-
-
-
-
-
-class TUXLIB application : public object
+class test : public tux::application
 {
-    std::thread _thid;
-    tux_signal<code::T> _app_start;
-    tux_signal<code::T> _app_end;
-    static application* _self;
-    diagnostic diagn;
-    stracc::list  _args;
-    //db::database* _regitery = nullptr;
-
-
-    code::T init_regitery();
+    tux::text text;
 public:
 
+    test(int argc, char** argv);
+    ~test() override;
 
+    tux::code::T init() override;
+    tux::code::T run() override;
 
-    application();
-    application(int argc, char** argv);
-    ~application() override;
-
-    virtual code::T init();
-    virtual code::T run();
-    virtual code::T terminate();
-
-
-    const stracc::list& args()  { return _args; }
-    static application& self();
-    static diagnostic& diagnostic_instance();
-    static code::code_attribute_table& codes_data();
-
-protected:
 
 
 };
-
-} // tux
-
 
