@@ -20,6 +20,7 @@
 #   endif
 
 #   include <Windows.h> // Must be included before anything else
+#   include <shlwapi.h>
 #   include <thread>
 #   include <cstdint>
 #   define __PRETTY_FUNCTION__ __FUNCSIG__

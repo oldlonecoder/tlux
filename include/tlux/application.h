@@ -22,7 +22,7 @@
 #pragma once
 //#include <tux/object.h>
 #include <thread>
-#include <tlux/tux_signal.h>
+#include <tlux/delegate.h>
 #include <tlux/diagnostic.h>
 #include <functional>
 
@@ -39,8 +39,9 @@ namespace tux {
 class TUXLIB application : public object
 {
     std::thread _thid;
-    tux_signal<code::T> _app_start;
-    tux_signal<code::T> _app_end;
+    using evsignal = delegator<>;
+    evsignal _app_start;
+    evsignal _app_end;
     static application* _self;
     diagnostic diagn;
     stracc::list  _args;
@@ -65,6 +66,11 @@ public:
     static application& self();
     static diagnostic& diagnostic_instance();
     static code::code_attribute_table& codes_data();
+
+    template<class Ty> int startup(Ty* obj, void(Ty::*fn)())
+    {
+        return _app_start.connect_member(obj, fn);
+    }
 
 protected:
 

@@ -23,12 +23,11 @@ namespace tux::db
 {
 
 query::query():object(){}
-query::query(query&& Q):object(Q) noexcept
+
+query::query(const query& Q) : object(Q)
 {
 
 }
-
-query::query(const query& Q);
 
 
 query tux::db::query::operator<<(db::table *atbl)

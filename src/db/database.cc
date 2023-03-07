@@ -19,12 +19,14 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include<tlux/db/database.h>
-#include <unistd.h>
+//#include <unistd.h>
 #include<tlux/diagnostic.h>
 
 
 namespace tux::db
 {
+
+
 int database::sqlite3_callback(void *aobj, int argc, char **argv, char **azColName)
 {
     object* obj = reinterpret_cast<object*>(aobj);
@@ -37,7 +39,7 @@ int database::sqlite3_callback(void *aobj, int argc, char **argv, char **azColNa
             diagnostic::output() << color::White << "Field[" << color::Yellow << azColName[i] << color::White << "] = '" << color::Lime << (argv[i] ? argv[i] : "NULL") << color::White << "';";
         }
         diagnostic::debug() << code::end << " Now signal the row...";
-        return this_db->callback_signal(argc,argv,azColName);
+        this_db->callback_signal(argc,argv,azColName);
     }
 
     diagnostic::error(sfnll) << "callback obj has no address! - data ignored.";
@@ -58,10 +60,10 @@ code::T database::open()
     //diagnostic::debug(sfnl) << code::begin << "file:" << color::Yellow << str;
 #ifdef  _WIN32
     if (!PathFileExistsA(str().c_str()))
-        return
-        {
-            (utils::notification::push(), " sqlite3 open db error(", _dbname, ") - no such database file.\n")
-        };
+    {
+        diagnostic::error() << code::notexist << " sqlite3 open db error(", id(), ") - no such database file.\n";
+        return code::notexist;
+    }
 #else
     int ok = access(str().c_str(),F_OK) == 0; // Just check if the db file exists.
     if(!ok)
@@ -87,10 +89,14 @@ code::T database::create()
 {
     stracc str;
     str << id() << '.' << _ext;
+#ifdef  _WIN32
+    if (PathFileExistsA(str().c_str()))
+        throw diagnostic::except(sfnll) << "database " << id() << " already " << code::exist;
+#else
     int ok = access(str().c_str(),F_OK) == 0;
     if(ok)
         throw diagnostic::except(sfnll) <<  "database " << id() << " already " << code::exist;
-
+#endif
     int res = sqlite3_open(str.str().c_str(),&_file);
     if(res != 0)
         throw diagnostic::except(sfnl) << code::failed << " -  Error creating database '" << id() << ": " << strerror(errno);
@@ -102,7 +108,7 @@ code::T database::create()
          code::T r =  e.text(str);
          if(r == code::ok)
              str << "\n";
-         return r;
+         return r<2;
     });
 
     diagnostic::test(sfnll) << code::begin << "Before creating db schema:";

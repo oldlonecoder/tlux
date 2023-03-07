@@ -27,7 +27,7 @@
 #include<tlux/db/table.h>
 #include<tlux/strbrk.h>
 
-#include<tlux/tux_signal.h>
+#include<tlux/delegate.h>
 
 namespace tux::db {
 
@@ -37,7 +37,7 @@ class  database : public object
     object::list _tables;
     std::string _ext = ".data";
     static int sqlite3_callback(void *NotUsed, int argc, char **argv, char **azColName);
-    tux_signal<code::T, int, char **, char **> callback_signal;
+    delegator<int, char **, char **> callback_signal;
 
 public:
 
@@ -49,9 +49,7 @@ public:
     code::T open();
     code::T create();
     code::T close();
-    auto set_callback(tux_signal<code::T, int, char **, char **>::slot cb)
-    { return callback_signal.connect(cb); }
-
+    
     code::T execute_query(const std::string& aquery_string);
     table& operator [](const std::string& eid);
     table* add_table(const std::string& ename);

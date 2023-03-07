@@ -25,6 +25,7 @@ tux::code::T test::init()
 {
     application::init(); // -> Never-ever forget anymore! ...
     //...
+    application::startup(this, &test::started);
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;
 }
@@ -45,4 +46,10 @@ tux::code::T test::run()
         }
     );
     return code::ok;
+}
+
+
+void test::started()
+{
+    ;
 }

@@ -18,7 +18,7 @@
     <ClInclude Include="include\tlux\application.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\cc_arg.h">
+    <ClInclude Include="include\tlux\argc.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="include\tlux\diagnostic.h">
@@ -39,7 +39,7 @@
     <ClInclude Include="include\tlux\textattr.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\tux_signal.h">
+    <ClInclude Include="include\tlux\delegate.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="include\tlux\stml\text.h">
@@ -54,12 +54,24 @@
     <ClInclude Include="include\tlux\dlconf.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\tlux\db\table.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tlux\db\query.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tlux\db\field.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tlux\db\database.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\application.cc">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\cc_arg.cc">
+    <ClCompile Include="src\argc.cc">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\diagnostic.cc">
@@ -87,6 +99,18 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\stml\text.cc">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db\table.cc">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db\query.cc">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db\field.cc">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\db\database.cc">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

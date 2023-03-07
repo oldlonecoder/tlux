@@ -23,7 +23,7 @@
 #pragma once
 
 //#include <tlux/diagnostic.h>
-#include <tlux/tux_signal.h>
+#include <tlux/delegate.h>
 
 
 namespace tux {

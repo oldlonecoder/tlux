@@ -120,12 +120,12 @@ class query : public object
 
 public:
     query();
-    query(query&& Q) noexcept;
+    query(query&& Q) noexcept : object(Q) {}
     query(const query& Q);
 
 
-    query operator << (db::field* af);
-    query operator << (db::field::list&& af);
+    //query operator << (db::field* af);
+    //query operator << (db::field::list&& af);
     query operator << (db::table* atbl);
 
 };

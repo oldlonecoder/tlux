@@ -24,7 +24,12 @@
 
 #pragma once
 #include<tlux/object.h>
-#include <sqlite3.h>
+#ifdef _WIN32
+
+#   include <winsqlite/winsqlite3.h>
+#else
+#   include <sqlite3.h>
+#endif
 #include <tlux/db/field.h>
 
 namespace tux::db
