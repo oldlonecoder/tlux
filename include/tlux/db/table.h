@@ -72,11 +72,11 @@ public:
     field* add_field(field&& af);
     table& operator << (field&& f);
     field& operator[](const std::string& fid);
-    code::T add_foreign(const std::string& fname, const std::string& ftablename, const std::string& fcolname);
+    code::M add_foreign(const std::string& fname, const std::string& ftablename, const std::string& fcolname);
     field& query_field_by_name(const std::string& f_id);
     field* field_by_id(const std::string& fname);
-    code::T set_unique(stracc::list fields);
-    code::T text(stracc& query_acc);
+    code::M set_unique(stracc::list fields);
+    code::M text(stracc& query_acc);
 };
 
 } // namespace tux:db

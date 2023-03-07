@@ -47,7 +47,7 @@ public:
 
     using list = std::vector<arg*>;
     using iterator = arg::list::iterator;
-    virtual code::T run() = 0;
+    virtual code::M run() = 0;
 
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     virtual ~arg() {_args.clear();}
@@ -61,7 +61,7 @@ template<typename T> class cc_arg: public arg
     T* _user = nullptr;
 
 public:
-    using handler_t = code::T (T::*)(cc_arg<T>&);
+    using handler_t = code::M (T::*)(cc_arg<T>&);
 
     cc_arg() = default;
     cc_arg(cc_arg&&) noexcept = default;
@@ -78,7 +78,7 @@ public:
     cc_arg& operator = (cc_arg&&) noexcept = default;
     cc_arg& operator = (const cc_arg&) = default;
     inline int values_count() { return _args.size(); }
-    code::T run() override {
+    code::M run() override {
         return code::notimplemented;
     }
 
@@ -98,7 +98,7 @@ public:
     ~cc_args();
 
 
-    code::T process_args(int argc, char** argv);
+    code::M process_args(int argc, char** argv);
 
     cc_args& operator << (cmd::arg* _arg);
 

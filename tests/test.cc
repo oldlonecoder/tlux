@@ -21,16 +21,18 @@ test::~test()
 {
 }
 
-tux::code::T test::init()
+tux::code::M test::init()
 {
     application::init(); // -> Never-ever forget anymore! ...
     //...
     application::startup(this, &test::started);
+    application::terminate_rt(this, &test::terminated);
+
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;
 }
 
-tux::code::T test::run()
+tux::code::M test::run()
 {
     init();
     //text = tux::text("<fg:Yellow Icon:ArrowLeft>Allo!");
@@ -49,7 +51,12 @@ tux::code::T test::run()
 }
 
 
-void test::started()
+code::M test::started(int)
 {
     ;
+}
+
+tux::code::M test::terminated(int)
+{
+    diagnostic::info(sfnll) << code::success;
 }

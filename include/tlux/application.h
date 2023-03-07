@@ -39,7 +39,7 @@ namespace tux {
 class TUXLIB application : public object
 {
     std::thread _thid;
-    using evsignal = delegator<>;
+    using evsignal = delegator<int>;
     evsignal _app_start;
     evsignal _app_end;
     static application* _self;
@@ -48,7 +48,7 @@ class TUXLIB application : public object
     //db::database* _regitery = nullptr;
 
 
-    code::T init_regitery();
+    code::M init_regitery();
 public:
 
 
@@ -57,9 +57,9 @@ public:
     application(int argc, char** argv);
     ~application() override;
 
-    virtual code::T init();
-    virtual code::T run();
-    virtual code::T terminate();
+    virtual code::M init();
+    virtual code::M run();
+    virtual code::M terminate();
 
 
     const stracc::list& args()  { return _args; }
@@ -67,9 +67,14 @@ public:
     static diagnostic& diagnostic_instance();
     static code::code_attribute_table& codes_data();
 
-    template<class Ty> int startup(Ty* obj, void(Ty::*fn)())
+    template<class T> int startup(T* obj, code::M(T::*fn)(int))
     {
         return _app_start.connect_member(obj, fn);
+    }
+
+    template<typename Class> int terminate_rt(Class* obj, code::M(Class::* fn)(int))
+    {
+        return _app_end.connect_member(obj, fn);
     }
 
 protected:

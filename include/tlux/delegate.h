@@ -10,7 +10,7 @@
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PAvoidICULAR PURPOSE.  See the         *
+ *   MERCHANTABILITY or FITNESS FOR A PAcode::MICULAR PURPOSE.  See the         *
  *   GNU General Public License for more details.                          *
  *                                                                         *
  *   You should have received a copy of the GNU General Public License     *
@@ -36,7 +36,7 @@ template <typename... Args> class delegator {
 
 public:
 
-    using delegate = std::function<void(Args...)>;
+    using delegate = std::function<code::M(Args...)>;
 
     delegator() = default;
     ~delegator() = default;
@@ -65,17 +65,24 @@ public:
         return *this;
     }
 
-
     // Connects a std::function to the signal. The returned
     // value can be used to disconnect the function again.
-    int connect(std::function<void(Args...)> const& slot) const {
+    int connect(std::function<code::M(Args...)>  slot)  {
         _slots.insert(std::make_pair(++_current_id, slot));
         return _current_id;
     }
 
+    // Connects a std::function to the signal. The returned
+    // value can be used to disconnect the function again.
+    int connect(std::function<code::M(Args...)> const& slot) const {
+        _slots.insert(std::make_pair(++_current_id, slot));
+        return _current_id;
+    }
+
+
     // Convenience method to connect a member function of an
     // object to this delegator.
-    template <typename T> int connect_member(T* inst, void(T::* func)(Args...)) {
+    template <typename T> int connect_member(T* inst, code::M(T::* func)(Args...)) {
         return connect([=](Args... args) {
             (inst->*func)(args...);
             });
@@ -84,7 +91,7 @@ public:
     // Convenience method to connect a const member function
     // of an object to this delegator.
     template <typename T>
-    int connect_member(T* inst, void(T::* func)(Args...) const) {
+    int connect_member(T* inst, code::M(T::* func)(Args...) const) {
         return connect([=](Args... args) {
             (inst->*func)(args...);
             });
@@ -96,36 +103,43 @@ public:
     }
 
     // Disconnects all previously connected functions.
-    code disconnect_all() const {
+    void disconnect_all() const {
         _slots.clear();
     }
 
     // Calls all connected functions.
-    void operator()(Args... p) {
-        for (auto& [i, fn] : _slots) fn(p...);
+    code::M operator()(Args... p) {
+        code::M R{};
+        for (auto& [i, fn] : _slots) R = fn(p...);
+        return R;
     }
 
-    // Calls all connected functions except for one.
-    void emit_for_all_but_one(int excludedConnectionID, Args... p) {
-        for (auto &[i,fn] : _slots) {
-            if (i != excludedConnectionID) {
-                fn(p...);
-            }
-        }
-    }
+    //// Calls all connected functions except for one.
+    //code::M emit_for_all_but_one(int excludedConnectionID, Args... p) {
+    //    code::M R{};
+    //    for (auto &[i,fn] : _slots) {
+    //        if (i != excludedConnectionID) {
+    //            fn(p...);
+    //        }
+    //    }
+    //}
 
-    // Calls only one connected function.
-    void emit_for(int connectionID, Args... p) {
-        auto const& it = _slots.find(connectionID);
-        if (it != _slots.end()) {
-            it->second(p...);
-        }
-    }
+    //// Calls only one connected function.
+    //code::M emit_for(int connectionID, Args... p) {
+    //    auto const& it = _slots.find(connectionID);
+    //    if (it != _slots.end()) {
+    //        it->second(p...);
+    //    }
+    //}
 
 private:
-    mutable std::map<int, std::function<void(Args...)>> _slots;
+    mutable std::map<int, std::function<code::M(Args...)>> _slots;
     mutable int  _current_id{ 0 };
 };
+
+
+
+
 
 }
 

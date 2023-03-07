@@ -109,7 +109,7 @@ field &field::operator=(const field &af)
     return *this;
 }
 
-code::T field::attributes_text(stracc& qacc) const
+code::M field::attributes_text(stracc& qacc) const
 {
     if(!(A & field::Null))
         qacc << " NOT NULL ";
@@ -153,14 +153,14 @@ code::T field::attributes_text(stracc& qacc) const
  * @brief std::string operator serializes the column's descriptions for the create or alter pgsql table column.
  * @return std::string resulting SQL execute_query text line.
  */
-code::T field::text(stracc& qacc) const
+code::M field::text(stracc& qacc) const
 {
     qacc <<  id(); ///< Get the column name from this object::id().
     qacc << " ";
     return sql_type(qacc);
 }
 
-code::T field::sql_type(stracc& qacc) const
+code::M field::sql_type(stracc& qacc) const
 {
     stracc str;
     switch(T)
@@ -181,7 +181,7 @@ code::T field::sql_type(stracc& qacc) const
 
 
 
-code::T field::set_foreign_key(field &aref_field)
+code::M field::set_foreign_key(field &aref_field)
 {
     auto *tbl = aref_field.parent<table>();
     ref_field = &aref_field;

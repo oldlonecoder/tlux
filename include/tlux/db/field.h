@@ -89,11 +89,11 @@ public:
     bool is_foreign() const { return A & field::Reference; }
     void set_length(int l)   { _len = l; }
 
-    code::T attributes_text(stracc& qacc) const;
-    code::T set_foreign_key(field& aref_field);
+    code::M attributes_text(stracc& qacc) const;
+    code::M set_foreign_key(field& aref_field);
 
-    code::T text(stracc& qacc) const;
-    code::T sql_type(stracc& qacc) const;
+    code::M text(stracc& qacc) const;
+    code::M sql_type(stracc& qacc) const;
     operator bool() const{ return T != field::type::Unset; }
 
 };

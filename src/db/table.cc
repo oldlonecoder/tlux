@@ -14,7 +14,7 @@ table::~table() {for(auto* obj: _children) delete obj;}
 
 table::table(object *aparent, const std::string& aid):object(aparent, aid) {}
 
-code::T table::text(stracc &query_acc)
+code::M table::text(stracc &query_acc)
 {
     query_acc << "CREATE TABLE " << id() << "(\n";
     // Iterate fields and accumulate strings to str:
@@ -68,7 +68,7 @@ field &table::operator[](const std::string &fid)
 }
 
 
-code::T table::add_foreign(const std::string &fname, const std::string &ftablename, const std::string &fcolname)
+code::M table::add_foreign(const std::string &fname, const std::string &ftablename, const std::string &fcolname)
 {
     auto& f = query_field_by_name(fname);
     if(!f)
@@ -97,7 +97,7 @@ field *table::field_by_id(const std::string &fname)
     return &null_field;
 }
 
-code::T table::set_unique(stracc::list fields)
+code::M table::set_unique(stracc::list fields)
 {
     field* f = nullptr;
     for(auto const& name: fields)

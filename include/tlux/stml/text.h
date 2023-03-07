@@ -37,7 +37,7 @@ namespace tux
         <p>
             Test Sample:
         </p>
-        @code code::T Test::TestText()
+        @code code::M Test::TestText()
         {
             text txt;
             txt = " <FB: Reset; F:Yellow; Icon:Home;> Salut <FB:Reset White;  f:Yellow;> &agrave; <FB:Reset;>Toi!";
@@ -167,8 +167,8 @@ public:
             * Destructor
             */
         ~text();
-        code::T compile();
-        code::T operator >> (std::string&);
+        code::M compile();
+        code::M operator >> (std::string&);
         std::string operator << (const std::string& input_str);
 
         struct  TUXLIB token_data
@@ -331,7 +331,7 @@ public:
             void syntax_error(token_data& atoken);
             void value_error(token_data& atoken);
             void close_token(token_data& Info);
-            code::T execute();
+            code::M execute();
             text::attribute compile_attribute(text::attribute& Attr);
             text::attribute compile_accent(text::attribute& Attr);
             text::token_data scan();
@@ -339,22 +339,22 @@ public:
             color::type color_id(token_data& Token);
             Icon::Type icon_id(token_data& Token);
             text::token_data scan_identifier();
-            code::T eat_token(text::token_data& Token);
+            code::M eat_token(text::token_data& Token);
             compiler() = delete;
             explicit compiler(text& aTextInstance);
             ~compiler() = default;
             bool eof();
 
-            using parser_fnptr_t = code::T(text::compiler::*)(text::attribute&);
+            using parser_fnptr_t = code::M(text::compiler::*)(text::attribute&);
             using parsers_table_t = std::unordered_map<token_data::mnemonic, text::compiler::parser_fnptr_t>;
 
-            code::T parse_icon(text::attribute& A); // Parser pour ':' + 'IconID' + ';'
-            code::T parse_fg(text::attribute& A); // Parser pour ':' + 'ColorID' + ';'
-            code::T ParseBg(text::attribute& A); // Parser pour ':' + 'ColorID' + ';'
-            code::T parse_color(text::attribute& A); // Parser pour ':' + 'ColorID' + ',' + 'ColorID' + ';'
-            code::T parse_br(text::attribute& A); // 'BR'; ( <br; .. > ou <br>)
-            code::T close_attribute(text::attribute& A); // 'BR'; ( <br; .. > ou <br>)
-            code::T check_eos(text::attribute& A);
+            code::M parse_icon(text::attribute& A); // Parser pour ':' + 'IconID' + ';'
+            code::M parse_fg(text::attribute& A); // Parser pour ':' + 'ColorID' + ';'
+            code::M ParseBg(text::attribute& A); // Parser pour ':' + 'ColorID' + ';'
+            code::M parse_color(text::attribute& A); // Parser pour ':' + 'ColorID' + ',' + 'ColorID' + ';'
+            code::M parse_br(text::attribute& A); // 'BR'; ( <br; .. > ou <br>)
+            code::M close_attribute(text::attribute& A); // 'BR'; ( <br; .. > ou <br>)
+            code::M check_eos(text::attribute& A);
             std::string mark();
         };
 

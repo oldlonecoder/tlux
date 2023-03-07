@@ -489,7 +489,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         return Str();
     }
 
-    code::T text::compile()
+    code::M text::compile()
     {
         text::compiler Parse{ *this };
         auto A = Parse.execute();
@@ -505,7 +505,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         return code::accepted;
     }
 
-    code::T text::operator>>(std::string& Out)
+    code::M text::operator>>(std::string& Out)
     {
 
         const char* r = _d.c_str();
@@ -620,7 +620,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         return false;
     }
 
-    //code::T text::Compiler::Skip()
+    //code::M text::Compiler::Skip()
     //{
     //    //code::Debug() << " text::TextParser::Skip(" << color::Yellow << *C << color::Reset << "):";
     //    while (C <= E)
@@ -671,7 +671,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
             loop
         @endcode
     */
-    code::T text::compiler::execute()
+    code::M text::compiler::execute()
     {
         // Build tokens stream:
         while (!eof())
@@ -731,7 +731,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         {
             // on passe '<'
             //Skip();
-            code::T ER;
+            code::M ER;
             // Expecting text::token_data::mnemonic:
             Token = text::token_data::scan(C);
             if (!Token)
@@ -842,7 +842,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
 
     bool text::compiler::eof() { return C > E; }
 
-   code::T text::compiler::parse_icon(text::attribute& A)
+   code::M text::compiler::parse_icon(text::attribute& A)
    {
        auto Token = text::token_data::scan(C);
        if (Token.T != text::token_data::type::Punctuation)
@@ -865,7 +865,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
 
 
 
-    code::T text::compiler::parse_fg(text::attribute& A)
+    code::M text::compiler::parse_fg(text::attribute& A)
     {
         // C sur 'Fg'; ( Consomm&eacute; )
         // Attendus :  ':' , 'ColorID', '; | >';
@@ -893,7 +893,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         return check_eos(A);
     }
 
-    code::T text::compiler::ParseBg(text::attribute& A)
+    code::M text::compiler::ParseBg(text::attribute& A)
     {
         // C sur 'Fg'; ( Consomm&eacute; )
         // Attendus :  ':' , 'ColorID', '; | >';
@@ -942,7 +942,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
 
 
 
-    code::T text::compiler::parse_color(text::attribute& A)
+    code::M text::compiler::parse_color(text::attribute& A)
     {
 
         auto Token = text::token_data::scan(C);
@@ -1002,19 +1002,19 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
 
 
 
-    code::T text::compiler::parse_br(text::attribute& A)
+    code::M text::compiler::parse_br(text::attribute& A)
     {
 
         return code::notimplemented;
     }
 
-    code::T text::compiler::close_attribute(text::attribute& A)
+    code::M text::compiler::close_attribute(text::attribute& A)
     {
         //TextRef.PushAttribute(A);
         return code::accepted;
     }
 
-    code::T text::compiler::check_eos(text::attribute& A)
+    code::M text::compiler::check_eos(text::attribute& A)
     {
         //Skip();
         auto Token = text::token_data::scan(C);
@@ -1055,7 +1055,7 @@ text_tokenizer::text_tokenizer(std::string aStr): _d(aStr.c_str())
         return Token;
     }
 
-    code::T text::compiler::eat_token(text::token_data& Token)
+    code::M text::compiler::eat_token(text::token_data& Token)
     {
         C = Token._location.end;
         C++;

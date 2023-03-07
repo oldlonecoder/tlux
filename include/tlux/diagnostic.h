@@ -56,7 +56,7 @@ struct  TUXLIB source_location
 
 struct  TUXLIB code
 {
-    using T = uint16_t;
+    using M = uint16_t;
     using type = uint8_t;
 
     static constexpr type none   = 0;
@@ -73,40 +73,40 @@ struct  TUXLIB code
     static constexpr type status = 11;
     static constexpr type test   = 12;
 
-    static constexpr T ok               = 0; ///< Obviously;
-    static constexpr T accepted         = 1;
-    static constexpr T success          = 2;
-    static constexpr T rejected         = 3;
-    static constexpr T failed           = 4;
-    static constexpr T empty            = 5;
-    static constexpr T full             = 6;
-    static constexpr T notempty         = 7;
-    static constexpr T implemented      = 8; ///< Like notimplemented or already implemented
-    static constexpr T notimplemented   = 9; ///< "Please, implement"
-    static constexpr T untested         = 10;
-    static constexpr T eof              = 11; ///< end of file
-    static constexpr T eos              = 12; ///< end of stream or string or statement or state ( machine state )
-    static constexpr T null_ptr         = 13; ///< It will happen. Trust me :)
-    static constexpr T endl             = 14; ///< end of line code, input format
-    static constexpr T enter            = 15; ///< enter bloc or indent
-    static constexpr T leave            = 16; ///< leaving bloc or unindent
-    static constexpr T begin            = 17; ///< begin (sel)section or indent
-    static constexpr T end              = 18; ///< end (logger: end of entry accumulators, so do commit); end of (sel)section, attribute ( auto- color::Reset ) and unindent
-    static constexpr T notexist         = 19; ///< does not exist
-    static constexpr T exist            = 20; ///< does already exist
-    static constexpr T unexpected       = 21; ///< unexpected
-    static constexpr T expected         = 22; ///< expected
-    static constexpr T blocked          = 23; ///< thread trying to lock a mutex has failed because the mutex is already locked in another thread...
-    static constexpr T locked           = 24; ///< thread trying to lock a mutex has became the owner of the lock.
-    static constexpr T ci               = 25; ///< Commit action;
-    static constexpr T function         = 1000;
-    static constexpr T file             = 1001;
-    static constexpr T line             = 1002;
-    static constexpr T stamp            = 4000; ///< fully detailed timestamp
-    static constexpr T hour             = 4001;
-    static constexpr T minute           = 4002;
-    static constexpr T seconds          = 4003;
-    static constexpr T weekday          = 4004;
+    static constexpr M ok               = 0; ///< Obviously;
+    static constexpr M accepted         = 1;
+    static constexpr M success          = 2;
+    static constexpr M rejected         = 3;
+    static constexpr M failed           = 4;
+    static constexpr M empty            = 5;
+    static constexpr M full             = 6;
+    static constexpr M notempty         = 7;
+    static constexpr M implemented      = 8; ///< Like notimplemented or already implemented
+    static constexpr M notimplemented   = 9; ///< "Please, implement"
+    static constexpr M untested         = 10;
+    static constexpr M eof              = 11; ///< end of file
+    static constexpr M eos              = 12; ///< end of stream or string or statement or state ( machine state )
+    static constexpr M null_ptr         = 13; ///< It will happen. Trust me :)
+    static constexpr M endl             = 14; ///< end of line code, input format
+    static constexpr M enter            = 15; ///< enter bloc or indent
+    static constexpr M leave            = 16; ///< leaving bloc or unindent
+    static constexpr M begin            = 17; ///< begin (sel)section or indent
+    static constexpr M end              = 18; ///< end (logger: end of entry accumulators, so do commit); end of (sel)section, attribute ( auto- color::Reset ) and unindent
+    static constexpr M notexist         = 19; ///< does not exist
+    static constexpr M exist            = 20; ///< does already exist
+    static constexpr M unexpected       = 21; ///< unexpected
+    static constexpr M expected         = 22; ///< expected
+    static constexpr M blocked          = 23; ///< thread trying to lock a mutex has failed because the mutex is already locked in another thread...
+    static constexpr M locked           = 24; ///< thread trying to lock a mutex has became the owner of the lock.
+    static constexpr M ci               = 25; ///< Commit action;
+    static constexpr M function         = 1000;
+    static constexpr M file             = 1001;
+    static constexpr M line             = 1002;
+    static constexpr M stamp            = 4000; ///< fully detailed timestamp
+    static constexpr M hour             = 4001;
+    static constexpr M minute           = 4002;
+    static constexpr M seconds          = 4003;
+    static constexpr M weekday          = 4004;
 
 
 
@@ -115,12 +115,12 @@ struct  TUXLIB code
     using attribute_data = std::pair<Icon::Type, textattr::pair>;
 
     using type_attribute_pair = std::pair<code::type , code::attribute_data>;
-    using code_attribute_pair = std::pair<code::T , code::attribute_data>;
+    using code_attribute_pair = std::pair<code::M , code::attribute_data>;
 
 
 
     static std::string text(code::type ty);
-    static std::string text(code::T co);
+    static std::string text(code::M co);
 
     using type_attribute_table = std::vector<code::type_attribute_pair>;
     using code_attribute_table = std::vector<code::code_attribute_pair>;
@@ -147,7 +147,7 @@ public:
 
         source_location loc = {};
         code::type  typ = code::test;
-        code::T     cod = code::ok;
+        code::M     cod = code::ok;
 
         stracc str_acc;
 
@@ -163,7 +163,7 @@ public:
         diagnostic::log_entry& operator=(const log_entry& le);
 
         diagnostic::log_entry& operator << (const std::string& val_);
-        diagnostic::log_entry& operator << (code::T c);
+        diagnostic::log_entry& operator << (code::M c);
         diagnostic::log_entry& operator << (code::type ty);
         diagnostic::log_entry& operator << (textattr::pair&& p );
         diagnostic::log_entry& operator << (color::type c);
@@ -199,9 +199,9 @@ public:
     ~diagnostic() override;
 
     code::attribute_data & operator[](code::type ty);
-    code::attribute_data & operator[](code::T ty);
+    code::attribute_data & operator[](code::M ty);
 
-    code::T init();
+    code::M init();
     static int indentation();
     static diagnostic::log_entry& error(source_location&& loc_ = {});
     static diagnostic::log_entry& warning (source_location&& loc = {});

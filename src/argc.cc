@@ -23,9 +23,9 @@ cc_args::~cc_args()
     _args.clear();
 }
 
-code::T cc_args::process_args(int argc, char **argv)
+code::M cc_args::process_args(int argc, char **argv)
 {
-    return code::T();
+    return code::M();
 }
 
 

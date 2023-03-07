@@ -58,9 +58,9 @@ std::string code::text(code::type ty)
     return _[ty];
 }
 
-std::string code::text(code::T co)
+std::string code::text(code::M co)
 {
-    std::map<code::T, const char*> _ = {
+    std::map<code::M, const char*> _ = {
         {code::ok,             "ok"},
         {code::accepted,       "accepted"},
         {code::success,        "success "},
@@ -158,7 +158,7 @@ diagnostic::log_entry &diagnostic::log_entry::operator<<(const std::string &val_
     return *this;
 }
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(code::T c)
+diagnostic::log_entry &diagnostic::log_entry::operator<<(code::M c)
 {
     switch(c)
     {
@@ -274,12 +274,12 @@ code::attribute_data &diagnostic::operator[](code::type ty)
     return types_data[ty].second;
 }
 
-code::attribute_data &diagnostic::operator[](code::T cd)
+code::attribute_data &diagnostic::operator[](code::M cd)
 {
     return codes_data[cd].second;
 }
 
-code::T diagnostic::init()
+code::M diagnostic::init()
 {
     return 0;
 }

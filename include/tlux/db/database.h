@@ -46,11 +46,11 @@ public:
     database(object* aparent, const std::string& aid, const std::string& aext = ".data");
     ~database() override;
 
-    code::T open();
-    code::T create();
-    code::T close();
+    code::M open();
+    code::M create();
+    code::M close();
     
-    code::T execute_query(const std::string& aquery_string);
+    code::M execute_query(const std::string& aquery_string);
     table& operator [](const std::string& eid);
     table* add_table(const std::string& ename);
 };

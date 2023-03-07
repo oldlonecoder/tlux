@@ -53,7 +53,7 @@ database::~database()
     for(auto* obj: _children) delete obj;
 }
 
-code::T database::open()
+code::M database::open()
 {
     stracc str = id();
     str << _ext;
@@ -85,7 +85,7 @@ code::T database::open()
     return code::success;
 }
 
-code::T database::create()
+code::M database::create()
 {
     stracc str;
     str << id() << '.' << _ext;
@@ -105,7 +105,7 @@ code::T database::create()
     str << "PRAGMA foreign_keys = ON;";
     // Loop table children
     for_each<table>([&str](table& e, bool last_table) -> bool {
-         code::T r =  e.text(str);
+         code::M r =  e.text(str);
          if(r == code::ok)
              str << "\n";
          return r<2;
@@ -122,7 +122,7 @@ code::T database::create()
 
 
 
-code::T database::close()
+code::M database::close()
 {
     int r = sqlite3_close(_file);
     if(r != 0)
@@ -133,7 +133,7 @@ code::T database::close()
     return 0;
 }
 
-code::T database::execute_query(const string &aquery_string)
+code::M database::execute_query(const string &aquery_string)
 {
     char* errmsg;
     int ok = sqlite3_exec(_file,aquery_string.c_str(),&database::sqlite3_callback, this, &errmsg);

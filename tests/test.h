@@ -35,9 +35,10 @@ public:
     test(int argc, char** argv);
     ~test() override;
 
-    tux::code::T init() override;
-    tux::code::T run() override;
-    void started();
+    tux::code::M init() override;
+    tux::code::M run() override;
+    tux::code::M started(int);
+    tux::code::M terminated(int);
 
 
 };

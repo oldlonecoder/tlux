@@ -26,7 +26,7 @@ namespace tux{
 
 application* application::_self = nullptr;
 
-code::T application::init_regitery()
+code::M application::init_regitery()
 {
     return code::notimplemented;
 }
@@ -53,7 +53,7 @@ application::~application()
 
 }
 
-code::T application::init()
+code::M application::init()
 {
 
     diagn.types_data = {
@@ -117,20 +117,18 @@ code::T application::init()
 
 
 
-code::T application::run()
+code::M application::run()
 {
     if(!application::_self)
         return code::null_ptr;
 
-    _app_start();
+    _app_start(0);
     return code::ok;
 }
 
-code::T application::terminate()
+code::M application::terminate()
 {
-    //...
-    _app_end();
-    return code::ok;
+    return _app_end(0);
 }
 
 
