@@ -39,7 +39,7 @@ int database::sqlite3_callback(void *aobj, int argc, char **argv, char **azColNa
             diagnostic::output() << color::White << "Field[" << color::Yellow << azColName[i] << color::White << "] = '" << color::Lime << (argv[i] ? argv[i] : "NULL") << color::White << "';";
         }
         diagnostic::debug() << code::end << " Now signal the row...";
-        this_db->callback_signal(argc,argv,azColName);
+        //this_db->callback_signal(argc,argv,azColName);
     }
 
     diagnostic::error(sfnll) << "callback obj has no address! - data ignored.";

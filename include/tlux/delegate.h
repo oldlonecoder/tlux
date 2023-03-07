@@ -22,26 +22,25 @@
 
 #pragma once
 
-#include <tlux/diagnostic.h>
+#include <tlux/expect.h>
 #include <functional>
+
+ // ------- copied from, intellectual proprietary to:
+ // https://schneegans.github.io/tutorials/2015/09/20/signal-slot :
+
+
 
 namespace tux
 {
 
-//template<typename T> delegator;
 
 template <typename... Args> class delegator {
 
-
-
 public:
-
-    using delegate = std::function<code::M(Args...)>;
-
     delegator() = default;
     ~delegator() = default;
 
-    // Copy constructor and assignment create a new signal.
+    // Copy constructor and assignment create a new delegator.
     delegator(delegator const& /*unused*/) {}
 
     delegator& operator=(delegator const& other) {
@@ -65,35 +64,39 @@ public:
         return *this;
     }
 
-    // Connects a std::function to the signal. The returned
+
+    // Connects a std::function to the delegator. The returned
     // value can be used to disconnect the function again.
-    int connect(std::function<code::M(Args...)>  slot)  {
+    int connect(std::function<expect<>(Args...)> const& slot) const {
         _slots.insert(std::make_pair(++_current_id, slot));
         return _current_id;
     }
-
-    // Connects a std::function to the signal. The returned
-    // value can be used to disconnect the function again.
-    int connect(std::function<code::M(Args...)> const& slot) const {
-        _slots.insert(std::make_pair(++_current_id, slot));
-        return _current_id;
-    }
-
 
     // Convenience method to connect a member function of an
     // object to this delegator.
-    template <typename T> int connect_member(T* inst, code::M(T::* func)(Args...)) {
+    template <typename T>
+    int connect_member(T* inst, expect<>(T::* func)(Args...)) {
         return connect([=](Args... args) {
-            (inst->*func)(args...);
+            return (inst->*func)(args...);
             });
     }
+
+    // Convenience method to connect a member function of an
+    // object to this delegator.
+    template <typename T>
+    int connect(T* inst, expect<>(T::* func)(Args...)) {
+        return connect([=](Args... args) {
+            return (inst->*func)(args...);
+            });
+    }
+
 
     // Convenience method to connect a const member function
     // of an object to this delegator.
     template <typename T>
-    int connect_member(T* inst, code::M(T::* func)(Args...) const) {
+    int connect(T* inst, expect<>(T::* func)(Args...) const) {
         return connect([=](Args... args) {
-            (inst->*func)(args...);
+            return (inst->*func)(args...);
             });
     }
 
@@ -108,39 +111,55 @@ public:
     }
 
     // Calls all connected functions.
-    code::M operator()(Args... p) {
-        code::M R{};
-        for (auto& [i, fn] : _slots) R = fn(p...);
+    expect<> emit(Args... p) {
+        expect<> R;
+        for (auto const& [f, fn] : _slots) {
+            R = fn(p...);
+            if (!R || *R == code::rejected) return R;
+        }
+        return R;
+    }
+    // Calls all connected functions.
+    expect<> operator()(Args... p) {
+        expect<> R;
+        for (auto const& [f, fn] : _slots) {
+            R = fn(p...);
+            if (!R || *R == code::rejected) return R;
+        }
         return R;
     }
 
-    //// Calls all connected functions except for one.
-    //code::M emit_for_all_but_one(int excludedConnectionID, Args... p) {
-    //    code::M R{};
-    //    for (auto &[i,fn] : _slots) {
-    //        if (i != excludedConnectionID) {
-    //            fn(p...);
-    //        }
-    //    }
-    //}
 
-    //// Calls only one connected function.
-    //code::M emit_for(int connectionID, Args... p) {
-    //    auto const& it = _slots.find(connectionID);
-    //    if (it != _slots.end()) {
-    //        it->second(p...);
-    //    }
-    //}
+    // Calls all connected functions except for one.
+    expect<> emit_for_all_but_one(int excludedConnectionID, Args... p) {
+        expect <> R;
+        for (auto const& it : _slots) {
+            if (it.first != excludedConnectionID) {
+                R = it.second(p...);
+                if (!R || *R == code::rejected) return R;
+            }
+        }
+        return R;
+    }
+
+    // Calls only one connected function.
+    expect<> emit_for(int connectionID, Args... p) {
+        expect<> R;
+        auto const& it = _slots.find(connectionID);
+        if (it != _slots.end()) {
+            R = it->second(p...);
+            if (!R || *R == code::rejected) return R;
+        }
+        return R;
+    }
 
 private:
-    mutable std::map<int, std::function<code::M(Args...)>> _slots;
-    mutable int  _current_id{ 0 };
+    mutable std::map<int, std::function<expect<>(Args...)>> _slots;
+    mutable int _current_id{ 0 };
+
+
+
 };
 
 
-
-
-
 }
-
-

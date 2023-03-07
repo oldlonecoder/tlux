@@ -5,6 +5,28 @@
 using tux::diagnostic;
 using tux::code;
 
+class MyCall
+{
+    std::string str{"Allo"};
+
+    
+
+
+public:
+
+    MyCall() = default;
+    MyCall(test& tt);
+    ~MyCall() {}
+
+    tux::expect<> Fini(int)
+    {
+        diagnostic::info(sfnll) << code::success;
+        return code::ok;
+    }
+
+};
+
+
 
 auto main(int argc, char** argv) -> int
 {
@@ -25,8 +47,6 @@ tux::code::M test::init()
 {
     application::init(); // -> Never-ever forget anymore! ...
     //...
-    application::startup(this, &test::started);
-    application::terminate_rt(this, &test::terminated);
 
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;
@@ -50,13 +70,17 @@ tux::code::M test::run()
     return code::ok;
 }
 
-
-code::M test::started(int)
+tux::code::M test::terminate()
 {
-    ;
+    auto R = Fini(0);
+    return code::ok;
 }
 
-tux::code::M test::terminated(int)
+
+
+
+MyCall::MyCall(test& tt)
 {
-    diagnostic::info(sfnll) << code::success;
+    tt.connect_term(this, &MyCall::Fini);
+
 }

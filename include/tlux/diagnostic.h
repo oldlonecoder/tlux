@@ -128,6 +128,10 @@ struct  TUXLIB code
 };
 
 
+
+
+
+
 class  TUXLIB diagnostic : public object
 {
     code::type_attribute_table types_data;

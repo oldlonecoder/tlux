@@ -72,7 +72,7 @@ public:
         return _app_start.connect_member(obj, fn);
     }
 
-    template<typename Class> int terminate_rt(Class* obj, code::M(Class::* fn)(int))
+    template<typename T> int terminate_rt(T* obj, code::M(T::* fn)(int))
     {
         return _app_end.connect_member(obj, fn);
     }

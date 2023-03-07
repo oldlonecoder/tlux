@@ -122,13 +122,13 @@ code::M application::run()
     if(!application::_self)
         return code::null_ptr;
 
-    _app_start(0);
+    _app_start.emit(0);
     return code::ok;
 }
 
 code::M application::terminate()
 {
-    return _app_end(0);
+    return _app_end.emit(0);
 }
 
 

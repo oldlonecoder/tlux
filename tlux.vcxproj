@@ -151,6 +151,7 @@
     <ClInclude Include="include\tlux\db\table.h" />
     <ClInclude Include="include\tlux\diagnostic.h" />
     <ClInclude Include="include\tlux\dlconf.h" />
+    <ClInclude Include="include\tlux\expect.h" />
     <ClInclude Include="include\tlux\geometry.h" />
     <ClInclude Include="include\tlux\object.h" />
     <ClInclude Include="include\tlux\stml\text.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="src\db\query.cc" />
     <ClCompile Include="src\db\table.cc" />
     <ClCompile Include="src\diagnostic.cc" />
+    <ClCompile Include="src\expect.cc" />
     <ClCompile Include="src\geometry.cc" />
     <ClCompile Include="src\object.cc" />
     <ClCompile Include="src\stml\text.cc" />

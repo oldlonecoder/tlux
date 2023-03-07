@@ -30,6 +30,9 @@
 class test : public tux::application
 {
     tux::text text;
+
+    tux::delegator<int> Fini;
+
 public:
 
     test(int argc, char** argv);
@@ -37,9 +40,15 @@ public:
 
     tux::code::M init() override;
     tux::code::M run() override;
-    tux::code::M started(int);
-    tux::code::M terminated(int);
+    tux::code::M terminate() override;
 
+
+
+    template<typename T> int connect_term(T* obj, tux::expect<>(T::* fun)(int))
+    {
+        return Fini.connect(obj, fun);
+    }
+    
 
 };
 
