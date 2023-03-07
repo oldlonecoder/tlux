@@ -41,7 +41,15 @@ class arg
     std::string _desc = "no descriptions";
     char        _c=0;
 
+    using handler_t = delegator<int, const std::string&>;
+
+    handler_t _handler{ "argc unit" };
+
+
 public:
+
+    
+
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
 

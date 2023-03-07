@@ -37,8 +37,13 @@ namespace tux
 template <typename... Args> class delegator {
 
 public:
+    std::string _id{"anon delegator"};
+    using slot = std::function<expect<>(Args...)>;
+    using list = std::vector<typename delegator::slot>;
+    using iterator = typename delegator::list::iterator;
     delegator() = default;
     ~delegator() = default;
+    delegator(const std::string& id_) : _id(id_) {}
 
     // Copy constructor and assignment create a new delegator.
     delegator(delegator const& /*unused*/) {}
@@ -53,11 +58,13 @@ public:
     // Move constructor and assignment operator work as expected.
     delegator(delegator&& other) noexcept :
         _slots(std::move(other._slots)),
+        _id(std::move(other._id)),
         _current_id(other._current_id) {}
 
     delegator& operator=(delegator&& other) noexcept {
         if (this != &other) {
             _slots = std::move(other._slots);
+            _id = std::move(other._id);
             _current_id = other._current_id;
         }
 
@@ -155,6 +162,7 @@ public:
 
 private:
     mutable std::map<int, std::function<expect<>(Args...)>> _slots;
+    mutable typename delegator::list _delegates;
     mutable int _current_id{ 0 };
 
 
