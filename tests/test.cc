@@ -31,20 +31,31 @@ public:
 auto main(int argc, char** argv) -> int
 {
     test the_test(argc, argv);
+    MyCall M{ the_test };
+
     the_test.run();
+    diagnostic::clear([](diagnostic::log_entry& e) {
+        std::cerr << diagnostic::cc(e);
+        }
+    );
+    return 0;
 }
 
 test::test(int argc, char** argv)
 {
-
+    Fini = { "Test Application & MyCall :",acc };
 }
 
 test::~test()
 {
+    std::cerr << '\n'  << __PRETTY_FUNCTION__ << " clear Fini::accumulator...";
+    acc.clear();
 }
 
 tux::code::M test::init()
 {
+   
+
     application::init(); // -> Never-ever forget anymore! ...
     //...
 
@@ -59,16 +70,15 @@ tux::code::M test::run()
     //text.compile();
     std::string str;
     //text >> str;
-    auto c = tux::color::BlueViolet;
+    //auto c = tux::color::BlueViolet;
     str = text << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>!<Fg:BlueViolet; Icon:Windows;>";
     diagnostic::test() << code::success << str;
-
-    diagnostic::clear([](diagnostic::log_entry& e){
-        std::cerr << diagnostic::cc(e);
-        }
-    );
+    (void)terminate();
+    
     return code::ok;
 }
+
+
 
 tux::code::M test::terminate()
 {

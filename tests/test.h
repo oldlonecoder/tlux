@@ -32,6 +32,7 @@ class test : public tux::application
     tux::text text;
 
     tux::delegator<int> Fini;
+    tux::delegator<int>::accumulator acc;
 
 public:
 

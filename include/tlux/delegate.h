@@ -41,9 +41,11 @@ public:
     using slot = std::function<expect<>(Args...)>;
     using list = std::vector<typename delegator::slot>;
     using iterator = typename delegator::list::iterator;
+    using accumulator = std::vector<expect<>>;
     delegator() = default;
     ~delegator() = default;
     delegator(const std::string& id_) : _id(id_) {}
+    delegator(const std::string& id_, typename delegator::accumulator& acc) : _id(id_), _acc(&acc) {}
 
     // Copy constructor and assignment create a new delegator.
     delegator(delegator const& /*unused*/) {}
@@ -58,13 +60,15 @@ public:
     // Move constructor and assignment operator work as expected.
     delegator(delegator&& other) noexcept :
         _delegates(std::move(other._delegates)),
-        _id(std::move(other._id))
+        _id(std::move(other._id)),
+        _acc(std::move(other._acc))
     {}
 
     delegator& operator=(delegator&& other) noexcept {
         if (this != &other) {
             _delegates = std::move(other._delegates);
             _id = std::move(other._id);
+            _acc = std::move(other._acc);
         }
 
         return *this;
@@ -113,20 +117,22 @@ public:
         _delegates.clear();
     }
 
-    // Calls all connected functions.
-    expect<> emit(Args... p) {
-        expect<> R;
-        for (auto const& fn : _delegates) {
-            R = fn(p...);
-            if (!R || *R == code::rejected) return R;
-        }
-        return R;
-    }
+    //// Calls all connected functions.
+    //expect<> emit(Args... p) {
+    //    expect<> R;
+    //    for (auto const& fn : _delegates) {
+    //        R = fn(p...);
+    //        if (_acc) _acc->push_back(R);
+    //        if (!R || *R == code::rejected) return R;
+    //    }
+    //    return R;
+    //}
     // Calls all connected functions.
     expect<> operator()(Args... p) {
         expect<> R;
         for (auto const&fn : _delegates) {
             R = fn(p...);
+            if (_acc) _acc->push_back(R);
             if (!R || *R == code::rejected) return R;
         }
         return R;
@@ -139,6 +145,7 @@ public:
         for (auto const& it : _delegates) {
             if (it._id != id_) {
                 R = it(p...);
+                if (_acc) _acc->push_back(R);
                 if (!R || *R == code::rejected) return R;
             }
         }
@@ -150,15 +157,16 @@ public:
         expect<> R;
         if (id_ != _delegates.end()) {
             R = (*id_)(p...);
+            if (_acc) _acc->push_back(R);
             if (!R || *R == code::rejected) return R;
         }
         return R;
     }
 
 private:
-    //mutable std::map<int, std::function<expect<>(Args...)>> _slots;
-    mutable typename delegator::list _delegates;
 
+    mutable typename delegator::list _delegates;
+    mutable typename delegator::accumulator* _acc{ nullptr };
 };
 
 
