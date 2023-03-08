@@ -44,7 +44,7 @@ public:
 
 
 
-    template<typename T> int connect_term(T* obj, tux::expect<>(T::* fun)(int))
+    template<typename T> auto connect_term(T* obj, tux::expect<>(T::* fun)(int))
     {
         return Fini.connect(obj, fun);
     }
