@@ -29,7 +29,7 @@
 
 class test : public tux::application
 {
-    tux::text text;
+    tux::text text_str;
 
     tux::delegator<int> Fini;
     tux::delegator<int>::accumulator acc;
@@ -43,7 +43,7 @@ public:
     tux::code::M run() override;
     tux::code::M terminate() override;
 
-
+    tux::expect<> text(tux::cmd::arg& a);
 
     template<typename T> auto connect_term(T* obj, tux::expect<>(T::* fun)(int))
     {

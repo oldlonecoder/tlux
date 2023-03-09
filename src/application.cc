@@ -39,9 +39,7 @@ application::application():object()
 
 application::application(int argc, char** argv): object()
 {
-    for (int a = 0; a < argc; a++)
-        _args.push_back(argv[a]);
-
+    _args = cmd::env_args{ argc,argv };
 }
 
 
@@ -122,13 +120,12 @@ code::M application::run()
     if(!application::_self)
         return code::null_ptr;
 
-    _app_start(0);
     return code::ok;
 }
 
 code::M application::terminate()
 {
-    return _app_end(0);
+    return code::notimplemented;
 }
 
 

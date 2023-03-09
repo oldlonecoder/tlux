@@ -58,7 +58,13 @@ tux::code::M test::init()
 
     application::init(); // -> Never-ever forget anymore! ...
     //...
-
+    diagnostic::debug() << " building args processor:";
+    /*
+     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
+    
+    */
+    auto text_delegate = (args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }).connect(this, &test::text);
+    
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;
 }
@@ -66,13 +72,13 @@ tux::code::M test::init()
 tux::code::M test::run()
 {
     init();
-    //text = tux::text("<fg:Yellow Icon:ArrowLeft>Allo!");
-    //text.compile();
     std::string str;
-    //text >> str;
     //auto c = tux::color::BlueViolet;
-    str = text << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>!<Fg:BlueViolet; Icon:Windows;>";
+    str = text_str << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>!<Fg:BlueViolet; Icon:Windows;>";
     diagnostic::test() << code::success << str;
+    //...
+    (void)args().compile();
+    //...
     (void)terminate();
     
     return code::ok;
@@ -84,6 +90,11 @@ tux::code::M test::terminate()
 {
     auto R = Fini(0);
     return code::ok;
+}
+
+tux::expect<> test::text(tux::cmd::arg& a)
+{
+    return tux::code::ok;
 }
 
 

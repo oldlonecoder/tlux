@@ -22,7 +22,7 @@
 #pragma once
 //#include <tux/object.h>
 #include <thread>
-#include <tlux/delegate.h>
+#include <tlux/argc.h>
 #include <tlux/diagnostic.h>
 #include <functional>
 
@@ -39,16 +39,14 @@ namespace tux {
 class TUXLIB application : public object
 {
     std::thread _thid;
-    using evsignal = delegator<int>;
-    evsignal _app_start;
-    evsignal _app_end;
     static application* _self;
-    diagnostic diagn;
-    stracc::list  _args;
+    diagnostic      diagn;
     //db::database* _regitery = nullptr;
 
 
     code::M init_regitery();
+    cmd::env_args _args{};
+
 public:
 
 
@@ -61,22 +59,13 @@ public:
     virtual code::M run();
     virtual code::M terminate();
 
-
-    const stracc::list& args()  { return _args; }
     static application& self();
     static diagnostic& diagnostic_instance();
     static code::code_attribute_table& codes_data();
 
-    template<class T> int startup(T* obj, code::M(T::*fn)(int))
-    {
-        return _app_start.connect_member(obj, fn);
-    }
+    cmd::env_args& args() { return _args; }
 
-    template<typename T> int terminate_rt(T* obj, code::M(T::* fn)(int))
-    {
-        return _app_end.connect_member(obj, fn);
-    }
-
+   
 protected:
 
 

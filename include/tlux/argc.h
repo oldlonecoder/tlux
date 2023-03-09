@@ -26,13 +26,11 @@
 #include <tlux/delegate.h>
 
 
-namespace tux {
-
-namespace cmd
+namespace tux::cmd
 {
 
 
-class arg
+class TUXLIB arg
 {
     int _required_args = 0;
     stracc::list _args;
@@ -41,79 +39,45 @@ class arg
     std::string _desc = "no descriptions";
     char        _c=0;
 
-    using handler_t = delegator<int, const std::string&>;
-
-    handler_t _handler{ "argc unit" };
-
-
+    using signal = delegator<arg&>;
+    signal _delegator{ "arg" };
 public:
-
-    
 
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
 
-    using list = std::vector<arg*>;
+    using list = std::vector<arg>;
     using iterator = arg::list::iterator;
-    virtual code::M run() = 0;
-
+    
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
-    virtual ~arg() {_args.clear();}
-
-};
-
-
-template<typename T> class cc_arg: public arg
-{
-
-    T* _user = nullptr;
-
-public:
-    using handler_t = code::M (T::*)(cc_arg<T>&);
-
-    cc_arg() = default;
-    cc_arg(cc_arg&&) noexcept = default;
-    cc_arg(const cc_arg&) noexcept = default;
-
-    cc_arg(T* user_, typename cc_arg::handler_t h, const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0 ):
-        arg(opt_name_,letter_,require_narg),
-        _user(user_),
-        _handler(h)
-    {}
-
-    ~cc_arg() override {  }
-
-    cc_arg& operator = (cc_arg&&) noexcept = default;
-    cc_arg& operator = (const cc_arg&) = default;
-    inline int values_count() { return _args.size(); }
-    code::M run() override {
-        return code::notimplemented;
+    ~arg() {_args.clear();}
+    
+    template<typename T> arg::signal::iterator  connect(T* inst_, expect<>(T::* fn)(arg&))
+    {
+        return _delegator.connect(inst_, fn);
     }
 
-private:
-    handler_t _handler = nullptr;
 };
 
-}
 
-class cc_args
+
+class TUXLIB env_args
 {
-    cmd::arg::list _args;
+    cmd::arg::list  _args;
+    stracc::list    _argv;
 
 public:
-    cc_args() {}
+    env_args() {}
+    env_args(int argc, char** argv);
+    ~env_args();
 
-    ~cc_args();
-
-
-    code::M process_args(int argc, char** argv);
-
-    cc_args& operator << (cmd::arg* _arg);
-
-
+    arg& operator += (arg&& _arg);
+    arg& add(arg&& _arg);
+    expect<> compile();
+    expect<> execute();
 
 };
 
-} // namespace tux
+} // namespace tux::cmd
 
 
