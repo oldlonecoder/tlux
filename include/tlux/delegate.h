@@ -77,14 +77,14 @@ public:
 
     // Connects a std::function to the delegator. The returned
     // value can be used to disconnect the function again.
-    typename iterator connect(std::function<expect<>(Args...)> const& aslot) const {
+    typename delegator::iterator connect(std::function<expect<>(Args...)> const& aslot) const {
         _delegates.push_back(aslot);
         return --_delegates.end();
     }
 
     // Convenience method to connect a member function of an
     // object to this delegator.
-    template <typename T> typename iterator connect_member(T* inst, expect<>(T::* func)(Args...)) {
+    template <typename T> typename delegator::iterator connect_member(T* inst, expect<>(T::* func)(Args...)) {
         return connect([=](Args... args) {
             return (inst->*func)(args...);
             });
@@ -92,7 +92,7 @@ public:
 
     // Convenience method to connect a member function of an
     // object to this delegator.
-    template <typename T> typename iterator connect(T* inst, expect<>(T::* func)(Args...)) {
+    template <typename T> typename delegator::iterator connect(T* inst, expect<>(T::* func)(Args...)) {
         return connect([=](Args... args) {
             return (inst->*func)(args...);
             });
@@ -101,7 +101,7 @@ public:
 
     // Convenience method to connect a const member function
     // of an object to this delegator.
-    template <typename T> typename iterator connect(T* inst, expect<>(T::* func)(Args...) const) {
+    template <typename T> typename delegator::iterator connect(T* inst, expect<>(T::* func)(Args...) const) {
         return connect([=](Args... args) {
             return (inst->*func)(args...);
             });

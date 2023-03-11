@@ -21,45 +21,43 @@
 
 #pragma once
 #include <tlux/stracc.h>
-#include <string_view>
+#include <tlux/stracc.h>
 
 namespace tux
 {
-using std::string_view;
+//using std::string;
 using std::string;
 
 class TUXLIB strbrk
 {
-    std::string_view _d;
+    std::string _d;
 
-     [[maybe_unused]] static string_view _default_token_separators;
-     using iterator = string_view::iterator;
-     using list     = std::vector<string_view>;
+     [[maybe_unused]] static std::string _default_token_separators;
+     using iterator = std::string::const_iterator;
+     using list     = std::vector<std::string>;
  public:
      strbrk() = default;
-     explicit strbrk(string_view);
+     explicit strbrk(const std::string& aStr);
      explicit strbrk(char* aStr);
-     explicit strbrk(string_view, string_view Delim, bool KeepDelim);
-     explicit strbrk(char* aStr, string_view Delim, bool KeepDelim);
-     explicit strbrk(const std::string& aStr, string_view Delim, bool KeepDelim);
-
      strbrk(const char* aStr);
-     explicit strbrk(std::string aStr);
-     //strbrk(string&&);
+     explicit strbrk(std::string, std::string Delim, bool KeepDelim);
+     explicit strbrk(char* aStr, std::string Delim, bool KeepDelim);
+     explicit strbrk(const std::string& aStr, std::string Delim, bool KeepDelim);
+
      ~strbrk() = default;
 
      struct TUXLIB  token_t
      {
-         string_view::iterator mStart;
-         string_view::iterator mEnd;
-         string_view::iterator mSE;
+         std::string::const_iterator mStart;
+         std::string::const_iterator mEnd;
+         std::string::const_iterator mSE;
 
-         string operator()() const;
-         string operator*() const;
+         std::string operator()() const;
+         std::string operator*() const;
 
          using list = std::vector<strbrk::token_t>;
          using iterator = strbrk::token_t::list::iterator;
-         [[maybe_unused]] [[nodiscard]] string Mark() const;
+         [[maybe_unused]] [[nodiscard]] std::string Mark() const;
 
          int         mLine     = 1;
          int         mCol      = 1;
@@ -71,22 +69,22 @@ class TUXLIB strbrk
      struct TUXLIB  config_data
      {
          strbrk::token_t::list tokens;
-         string_view delimiters;
+         std::string delimiters;
          bool keep;
          size_t z;
      };
 
 
-     std::size_t operator()(strbrk::token_t::list &Collection, string_view aDelimiters = "", bool KeepAsWord = true) const;
+     std::size_t operator()(strbrk::token_t::list &Collection, std::string aDelimiters = "", bool KeepAsWord = true) const;
      //strbrk& operator>>(strbrk::Token::list& Collection);
 
      strbrk::iterator scan_to(strbrk::iterator start_, char c_) const;
  private:
      struct s_p_s
      {
-         string_view::iterator _begin;
-         string_view::iterator _pos;
-         string_view::iterator _end; /// ...
+         std::string::const_iterator _begin;
+         std::string::const_iterator _pos;
+         std::string::const_iterator _end; /// ...
 
          int      _line  = 1;
          int      _col   = 1;
@@ -95,24 +93,24 @@ class TUXLIB strbrk
          s_p_s() = default;
          ~s_p_s() = default;
 
-         explicit s_p_s(string_view str_);
+         explicit s_p_s(const std::string& str_);
          bool skip_ws();
          [[nodiscard]] bool end() const;
          bool operator++();
          bool operator++(int);
-         void reset(string_view str_)
+         void reset(const std::string& str_)
          {
-             _pos   = _begin = str_.begin();
+             _pos   = _begin = str_.cbegin();
              _line  = _col   = 1;
              _index = 0;
-             _end  = str_.end();
+             _end  = str_.cend();
          }
          s_p_s &operator>>(strbrk::token_t &word_);
      } _cursor;
  public:
-     strbrk& operator=(string_view str_);
+     strbrk& operator=(const std::string& str_);
      strbrk& operator=(const char* str_);
-     string_view operator()(){ return _d.data(); }
+     std::string operator()(){ return _d.data(); }
  private:
      config_data _cfg;
 

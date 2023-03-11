@@ -24,7 +24,8 @@
 #   include <thread>
 #   include <cstdint>
 #   define __PRETTY_FUNCTION__ __FUNCSIG__
-
+#else
+#       define TUXLIB
 #endif
 
 //---------------------------------------------

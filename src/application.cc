@@ -39,6 +39,8 @@ application::application():object()
 
 application::application(int argc, char** argv): object()
 {
+    application::_self = this;
+    diagn = diagnostic(this,"application::diagnostic");
     _args = cmd::env_args{ argc,argv };
 }
 

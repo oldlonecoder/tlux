@@ -24,7 +24,7 @@
 namespace tux
 {
 
-[[maybe_unused]] string_view strbrk::_default_token_separators = "\\%(){}[]`$#@!;,~?^&<>=+-*/:.";
+[[maybe_unused]] std::string strbrk::_default_token_separators = "\\%(){}[]`$#@!;,~?^&<>=+-*/:.";
 
 
 std::string strbrk::token_t::operator()() const
@@ -53,10 +53,10 @@ std::string strbrk::token_t::operator*() const
 std::string strbrk::token_t::Mark() const
 {
     std::string Str;
-    string_view::iterator CStart = mStart - mPosition;
+    std::string::const_iterator CStart = mStart - mPosition;
 
     //int                   l  = 1;
-    string_view::iterator cc = CStart;
+    std::string::const_iterator cc = CStart;
     // localiser le debut de la ligne;
     while(*cc && (cc > CStart) && (*cc != '\n') && (*cc != '\r'))
         --cc;
@@ -87,10 +87,10 @@ std::string strbrk::token_t::location()
 // ------------------------ strbrk::s_p_s --------------------------------
 
 
-strbrk::s_p_s::s_p_s(std::string_view aStr):
-    _begin(aStr.begin()),
-    _pos(aStr.begin()),
-    _end(aStr.begin())
+strbrk::s_p_s::s_p_s(const std::string& aStr):
+    _begin(aStr.cbegin()),
+    _pos(aStr.cbegin()),
+    _end(aStr.cbegin())
 {
 
 }
@@ -196,17 +196,17 @@ strbrk::iterator strbrk::scan_to(strbrk::iterator aStart, char c) const
     * white-spaces/ctrl or spacing characters are silent and implicit delimiters, in addition to the ones supplied by \c aDelimiters.
     */
 
-std::size_t strbrk::operator()(strbrk::token_t::list &Collection, string_view aDelimiters, bool KeepAsWord) const
+std::size_t strbrk::operator()(strbrk::token_t::list &Collection, std::string aDelimiters, bool KeepAsWord) const
 {
 
-    auto Crs = strbrk::s_p_s(_d);
+    strbrk::s_p_s Crs;
     if(_d.empty())
     {
         std::cout << " --> Contents is Empty!";
         return (std::size_t) 0;
     }
     Crs.reset(_d);
-    string_view token_separators = aDelimiters.empty() ? strbrk::_default_token_separators : aDelimiters;
+    std::string token_separators = aDelimiters.empty() ? strbrk::_default_token_separators : aDelimiters;
     if(!Crs.skip_ws())
     {
         //std::cout << " --> Contents Skip is false? (internal?)...\n";
@@ -219,7 +219,7 @@ std::size_t strbrk::operator()(strbrk::token_t::list &Collection, string_view aD
     {
         //if (!wcollection.empty());
         strbrk::iterator cc = Crs._pos;
-        if(token_separators.find(*Crs._pos) != string_view::npos)
+        if(token_separators.find(*Crs._pos) != std::string::npos)
         {
             cc = Crs._pos;
             if(cc > w.mStart)
@@ -315,18 +315,8 @@ std::size_t strbrk::operator()(strbrk::token_t::list &Collection, string_view aD
     return Collection.size();
 }
 
-//strbrk& strbrk::operator>>(strbrk::token_t::List& Collection)
-//{
-//    mConfig.z = Tokenize(mConfig.Collection, mConfig.Delim, mConfig.Keep);
-//    return *this;
-//}
 
-strbrk::strbrk(string_view aStr):
-    _d(aStr)
-{
-
-}
-strbrk &strbrk::operator=(string_view aStr)
+strbrk &strbrk::operator=(const std::string& aStr)
 {
     _d = aStr;
     return *this;
@@ -340,7 +330,7 @@ strbrk::strbrk(char *aStr): _d(aStr)
 {
 
 }
-strbrk::strbrk(string_view aStr, string_view Delim, bool KeepDelim):
+strbrk::strbrk(std::string aStr, std::string Delim, bool KeepDelim):
     _d(aStr)
 {
     _cfg.delimiters = Delim;
@@ -348,7 +338,7 @@ strbrk::strbrk(string_view aStr, string_view Delim, bool KeepDelim):
 }
 
 
-strbrk::strbrk(char* aStr, string_view Delim, bool KeepDelim) :
+strbrk::strbrk(char* aStr, std::string Delim, bool KeepDelim) :
     _d(aStr)
 {
     _cfg.delimiters = Delim;
@@ -358,7 +348,7 @@ strbrk::strbrk(char* aStr, string_view Delim, bool KeepDelim) :
 
 
 
-strbrk::strbrk(const std::string& aStr, string_view Delim, bool KeepDelim) :
+strbrk::strbrk(const std::string& aStr, std::string Delim, bool KeepDelim) :
     _d(aStr)
 {
     _cfg.delimiters = Delim;
@@ -371,7 +361,7 @@ strbrk::strbrk(const char* aStr) : _d(aStr)
 {}
 
 
-strbrk::strbrk(std::string aStr): _d(aStr.c_str())
+strbrk::strbrk(const std::string& aStr): _d(aStr.c_str())
 {
 
 }

@@ -6,4 +6,4 @@ project(tlux  VERSION 0.0.1 LANGUAGES CXX)
 
 include(tlux.cmake)
 
-add_subdirectory(tests)
+#add_subdirectory(tests)

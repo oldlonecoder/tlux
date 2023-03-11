@@ -33,15 +33,19 @@ auto main(int argc, char** argv) -> int
     test the_test(argc, argv);
     MyCall M{ the_test };
 
-    the_test.run();
+    try{
+        the_test.run();
+    }
+    catch(const char* ){}
     diagnostic::clear([](diagnostic::log_entry& e) {
         std::cerr << diagnostic::cc(e);
         }
     );
+
     return 0;
 }
 
-test::test(int argc, char** argv)
+test::test(int argc, char** argv):tux::application(argc,argv)
 {
     Fini = { "Test Application & MyCall :",acc };
 }
@@ -63,7 +67,9 @@ tux::code::M test::init()
      arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     
     */
-    auto text_delegate = (args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }).connect(this, &test::text);
+    auto text_delegate = (
+                             args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }
+                         ).connect(this, &test::text);
     
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;

@@ -19,7 +19,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include<tlux/db/database.h>
-//#include <unistd.h>
+#include <unistd.h>
 #include<tlux/diagnostic.h>
 
 

@@ -20,7 +20,11 @@ arg::arg(const std::string &opt_name_, char letter_, uint8_t opt_, int require_n
 
 env_args::env_args(int argc, char** argv)
 {
-    for (int c = 1; c < argc; c++) _argv.push_back(argv[c]);
+    for (int c = 1; c < argc; c++)
+    {
+        std::cerr << c << ": '" << argv[c] << "'\n";
+        _argv.push_back(argv[c]);
+    }
     
 }
 
@@ -58,24 +62,28 @@ expect<> env_args::compile()
     diagnostic::debug(sfnll) << code::test << " dump argv:";
     diagnostic::output() << code::begin << ":";
     for (auto const& A : _argv) diagnostic::output() << A;
-    diagnostic::output() << code::end << ";";
-    arg::iterator argit = _args.begin();
-    std::vector<arg::iterator> parsed_args;
+    diagnostic::output() << code::end;
+//    arg::iterator argit = _args.begin();
+//    std::vector<arg::iterator> parsed_args;
     int c = 0;
     while(c < _argv.size())
     {
         strbrk brk{ _argv[c] };
         strbrk::token_t::list tokens;
-        auto n = brk(tokens);
-        if (!n) 
+        auto n = brk(tokens,"--",true);
+        if (!n)
             return diagnostic::error() << code::failed << " argument as no data or parse error";
+        //...
+        diagnostic::debug() << "arg #" << c << " ['" << _argv[c] << "']:";
+        diagnostic::debug() << code::begin;
+        for(auto const& token: tokens)
+        {
+            diagnostic::output() << token();
+        }
+        diagnostic::debug() << code::end;
 
-
+        ++c;
     }
-
-
-
-
 
     return code::notimplemented;
 }
