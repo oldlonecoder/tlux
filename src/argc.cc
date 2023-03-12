@@ -70,7 +70,8 @@ expect<> env_args::compile()
     {
         strbrk brk{ _argv[c] };
         strbrk::token_t::list tokens;
-        auto n = brk(tokens,"--",true);
+        //auto n = brk(tokens,"-/:",true);
+        auto n = brk(tokens);
         if (!n)
             return diagnostic::error() << code::failed << " argument as no data or parse error";
         //...

@@ -31,8 +31,8 @@ class test : public tux::application
 {
     tux::text text_str;
 
-    tux::delegator<int> Fini;
-    tux::delegator<int>::accumulator acc;
+    tux::signal<int> Fini;
+    tux::signal<int>::accumulator acc;
 
 public:
 

@@ -9,9 +9,6 @@ class MyCall
 {
     std::string str{"Allo"};
 
-    
-
-
 public:
 
     MyCall() = default;
@@ -67,9 +64,8 @@ tux::code::M test::init()
      arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     
     */
-    auto text_delegate = (
-                             args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }
-                         ).connect(this, &test::text);
+    auto text_delegate =
+        (args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }).connect(this, &test::text);
     
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;

@@ -37,7 +37,7 @@ class  database : public object
     object::list _tables;
     std::string _ext = ".data";
     static int sqlite3_callback(void *NotUsed, int argc, char **argv, char **azColName);
-    delegator<code::M(int, char **, char **)> callback_signal;
+    signal<code::M(int, char **, char **)> callback_signal;
 
 public:
 

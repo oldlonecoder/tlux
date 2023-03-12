@@ -39,9 +39,15 @@ class TUXLIB arg
     std::string _desc = "no descriptions";
     char        _c=0;
 
-    using signal = delegator<arg&>;
-    signal _delegator{ "arg" };
 public:
+    struct TUXLIB context
+    {
+        stracc::iterator begin;
+        stracc::iterator end;
+        stracc::iterator cur;
+    };
+
+    signal<arg&, arg::context&> _signal{ "arg" };
 
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
@@ -52,11 +58,14 @@ public:
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     ~arg() {_args.clear();}
     
-    template<typename T> arg::signal::iterator  connect(T* inst_, expect<>(T::* fn)(arg&))
+    template<typename T> signal::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
     {
-        return _delegator.connect(inst_, fn);
+        return _signal.connect(inst_, fn);
     }
+private:
 
+    signal<arg&, arg::context&> _signal{ "arg" };
+    friend class env_args;
 };
 
 
