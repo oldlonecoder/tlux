@@ -17,7 +17,7 @@ add_library(
         include/${PROJECT_NAME}/application.h      src/application.cc
         include/${PROJECT_NAME}/diagnostic.h       src/diagnostic.cc #include the above headers.
         include/${PROJECT_NAME}/geometry.h         src/geometry.cc # standalone
-        include/${PROJECT_NAME}/delegate.h  # bare basic single-thread signal-slots
+        include/${PROJECT_NAME}/signals.h  # bare basic single-thread signal-slots
         include/${PROJECT_NAME}/strbrk.h           src/strbrk.cc
         include/${PROJECT_NAME}/object.h           src/object.cc
         include/${PROJECT_NAME}/stml/text.h        src/stml/text.cc
@@ -47,7 +47,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} ${CMAKE_DL_LIBS} sqlite3)
 
-add_executable(tests.app 
+add_executable(tests.app
 	tests/test.h
 	tests/test.cc
 )

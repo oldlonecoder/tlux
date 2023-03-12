@@ -27,7 +27,7 @@
 #include<tlux/db/table.h>
 #include<tlux/strbrk.h>
 
-#include<tlux/delegate.h>
+#include<tlux/signals.h>
 
 namespace tux::db {
 
@@ -49,7 +49,7 @@ public:
     code::M open();
     code::M create();
     code::M close();
-    
+
     code::M execute_query(const std::string& aquery_string);
     table& operator [](const std::string& eid);
     table* add_table(const std::string& ename);

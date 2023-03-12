@@ -23,7 +23,7 @@
 #pragma once
 
 //#include <tlux/diagnostic.h>
-#include <tlux/delegate.h>
+#include <tlux/signals.h>
 #include <utility>
 
 namespace tux::cmd
@@ -45,6 +45,10 @@ public:
         stracc::iterator begin;
         stracc::iterator end;
         stracc::iterator cur;
+
+        code::M operator ++();
+        code::M operator ++(int);
+
     };
 
 

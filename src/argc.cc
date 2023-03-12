@@ -72,8 +72,16 @@ expect<> env_args::execute()
         return code::rejected;
     }
 
+    _ctx = {
+        .begin = _argv.begin(),
+        .end = _argv.end(),
+        .cur = _argv.begin()
+    };
+
+    diagnostic::output() << " env_args::context initialized...";
     for (auto const& A : _argv) diagnostic::output() << A;
     diagnostic::output() << code::end;
+
 //    arg::iterator argit = _args.begin();
 //    std::vector<arg::iterator> parsed_args;
     int c = 0;
@@ -100,5 +108,18 @@ expect<> env_args::execute()
     return code::notimplemented;
 }
 
+code::M arg::context::operator ++()
+{
+    if(cur == end) return code::rejected;
+    ++cur;
+    return code::accepted;
+}
+
+code::M arg::context::operator ++(int)
+{
+    if(cur == end) return code::rejected;
+    ++cur;
+    return code::accepted;
+}
 
 }
