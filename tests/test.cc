@@ -65,7 +65,9 @@ tux::code::M test::init()
     
     */
     auto text_delegate =
-        (args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 }).connect(this, &test::text);
+        (args() += {"text", 't', tux::cmd::arg::Required | tux::cmd::arg::ValRequired, 1 })
+            .descriptions("Test the \"<stml>\" text  processor.")
+            .connect(this, &test::text);
     
     diagnostic::test(sfnll) << "on windows:terminal - " << code::ok;
     return code::ok;
@@ -76,7 +78,7 @@ tux::code::M test::run()
     init();
     std::string str;
     //auto c = tux::color::BlueViolet;
-    str = text_str << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>!<Fg:BlueViolet; Icon:Windows;>";
+    str = text_str << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>! <Fg:BlueViolet; Icon:Windows;>";
     diagnostic::test() << code::success << str;
     //...
     (void)args().execute();
@@ -94,6 +96,14 @@ tux::code::M test::terminate()
     return code::ok;
 }
 
+
+
+/*!
+ * \brief test::text
+ * \param a
+ * \param ctx
+ * \return
+ */
 tux::expect<> test::text(tux::cmd::arg& a, tux::cmd::arg::context& ctx)
 {
     return tux::code::ok;

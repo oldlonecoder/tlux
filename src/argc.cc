@@ -16,6 +16,12 @@ arg::arg(const std::string &opt_name_, char letter_, uint8_t opt_, int require_n
     _c = letter_;
 }
 
+arg &arg::descriptions(const std::string &_txt)
+{
+    _desc = _txt;
+    return *this;
+}
+
 
 
 env_args::env_args(int argc, char** argv)
@@ -61,6 +67,12 @@ expect<> env_args::execute()
 
     diagnostic::debug(sfnll) << code::test << " dump argv:";
     diagnostic::output() << code::begin << ":";
+    if(_argv.empty())
+    {
+        diagnostic::output() << code::end << " shell arguments list is empty. Leaving";
+        return code::rejected;
+    }
+
     for (auto const& A : _argv) diagnostic::output() << A;
     diagnostic::output() << code::end;
 //    arg::iterator argit = _args.begin();

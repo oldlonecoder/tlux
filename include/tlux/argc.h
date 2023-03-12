@@ -57,6 +57,7 @@ public:
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     ~arg() {_args.clear();}
     
+    arg& descriptions(const std::string& _txt);
     template<typename T> signal<arg&,arg::context&>::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
     {
         return _signal.connect(inst_, fn);
