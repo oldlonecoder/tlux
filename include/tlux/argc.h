@@ -24,7 +24,7 @@
 
 //#include <tlux/diagnostic.h>
 #include <tlux/delegate.h>
-
+#include <utility>
 
 namespace tux::cmd
 {
@@ -53,10 +53,10 @@ public:
 
     using list = std::vector<arg>;
     using iterator = arg::list::iterator;
-    
+
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     ~arg() {_args.clear();}
-    
+
     arg& descriptions(const std::string& _txt);
     template<typename T> signal<arg&,arg::context&>::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
     {
@@ -74,6 +74,10 @@ class TUXLIB env_args
 {
     cmd::arg::list  _args;
     stracc::list    _argv;
+
+    std::pair<std::string, expect<>(env_args::*)(arg&)> _afn;
+    arg::context _ctx;
+    expect<> dummy(arg&) { return code::notimplemented; }
 
 public:
     env_args() {}

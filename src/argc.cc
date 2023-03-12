@@ -23,7 +23,6 @@ arg &arg::descriptions(const std::string &_txt)
 }
 
 
-
 env_args::env_args(int argc, char** argv)
 {
     for (int c = 1; c < argc; c++)
@@ -31,7 +30,7 @@ env_args::env_args(int argc, char** argv)
         std::cerr << c << ": '" << argv[c] << "'\n";
         _argv.push_back(argv[c]);
     }
-    
+
 }
 
 env_args::~env_args()
@@ -57,7 +56,7 @@ arg& env_args::add(arg&& _arg)
 
 expect<> env_args::execute()
 {
-    
+
     // For now let's put it locally into this stack...
     //-------------------------------------------------
     //std::map<"--",
@@ -66,7 +65,7 @@ expect<> env_args::execute()
 
 
     diagnostic::debug(sfnll) << code::test << " dump argv:";
-    diagnostic::output() << code::begin << ":";
+    diagnostic::output() << code::begin;
     if(_argv.empty())
     {
         diagnostic::output() << code::end << " shell arguments list is empty. Leaving";
