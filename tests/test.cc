@@ -79,7 +79,7 @@ tux::code::M test::run()
     str = text_str << "<fg:Yellow; Icon:ArrowLeft;>Allo<fg:Aquamarine3;>!<Fg:BlueViolet; Icon:Windows;>";
     diagnostic::test() << code::success << str;
     //...
-    (void)args().compile();
+    (void)args().execute();
     //...
     (void)terminate();
     
@@ -94,12 +94,10 @@ tux::code::M test::terminate()
     return code::ok;
 }
 
-tux::expect<> test::text(tux::cmd::arg& a)
+tux::expect<> test::text(tux::cmd::arg& a, tux::cmd::arg::context& ctx)
 {
     return tux::code::ok;
 }
-
-
 
 
 MyCall::MyCall(test& tt)

@@ -47,7 +47,6 @@ public:
         stracc::iterator cur;
     };
 
-    signal<arg&, arg::context&> _signal{ "arg" };
 
     static constexpr uint8_t Required = 0x01;
     static constexpr uint8_t ValRequired = 0x01;
@@ -58,7 +57,7 @@ public:
     arg(const std::string& opt_name_, char letter_, uint8_t opt_ = 0, int require_narg = 0);
     ~arg() {_args.clear();}
     
-    template<typename T> signal::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
+    template<typename T> signal<arg&,arg::context&>::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
     {
         return _signal.connect(inst_, fn);
     }
@@ -82,7 +81,7 @@ public:
 
     arg& operator += (arg&& _arg);
     arg& add(arg&& _arg);
-    expect<> compile();
+    //expect<> compile();
     expect<> execute();
 
 };

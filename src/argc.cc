@@ -49,7 +49,7 @@ arg& env_args::add(arg&& _arg)
     return _args.back();
 }
 
-expect<> env_args::compile()
+expect<> env_args::execute()
 {
     
     // For now let's put it locally into this stack...
@@ -89,9 +89,5 @@ expect<> env_args::compile()
     return code::notimplemented;
 }
 
-expect<> env_args::execute()
-{
-    return code::notimplemented;
-}
 
 }

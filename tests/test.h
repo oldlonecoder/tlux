@@ -43,7 +43,7 @@ public:
     tux::code::M run() override;
     tux::code::M terminate() override;
 
-    tux::expect<> text(tux::cmd::arg& a);
+    tux::expect<> text(tux::cmd::arg& a, tux::cmd::arg::context& ctx);
 
     template<typename T> auto connect_term(T* obj, tux::expect<>(T::* fun)(int))
     {

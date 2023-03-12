@@ -297,7 +297,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-#Linux/KDevelop/Jetbrains
+#Linux/KDevelop/Jetbrains/QtCreator
 *.kdev4
 .kdev4/
 build/
@@ -307,3 +307,5 @@ cmake-*/
 .clangd/
 .idea/
 .vscode/
+CMakeLists.txt.user*
+
