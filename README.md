@@ -1,16 +1,16 @@
 # tuxls
-####[<span style="color : brown;">tux</span> penguin & a cup of <span style="color : green;">tea</span> + lux (light)]
+####[<span style="color : brown;">tux</span> penguin & <span style="color : green;">me</span> (ls > Lussier.Serge))]
 
 * My personal legacy, writting and learning <span style="color : blue;">C++</span> in 1988-esque code-style and some gems from modern c++-11/20 easiness of STL goodies.
 
-This project, exclusively under linux, is a set of basic tools for my other projects that depend on these.
+This project, exclusively under linux, is a set of basic utility tools for my other projects that depend on these.
 I try ==not== to depend on third party tools, hence this repository.
 ***
 GCC minimum version requirement for g++ is 11.2 (c++17 and early c++20 support)
 ***
 *"tux" is the root namespace of this repository, though I know that the name "tux" is used everywhere, so in this project as well ;)
 ***
-
+#### Some of the library contents of this project:
 #### By order of dependancy:
 utf
 : Basic glyph support. ( beware: not utf-* standard. Using hardcoded const char* ...litteraly) For now it is french accents and some (growing list of) glyphs from the (nerd) fonts.
@@ -34,7 +34,8 @@ diagnostic
 smtl::text
 : Basic simple markup text utility using the stuff provided by this project.
 
-tux_signal
+
+cmd::signals
 : Basic signal-slots, from https://schneegans.github.io/tutorials/2015/09/20/signal-slot,
               adapted to this project specifics.
 
@@ -42,9 +43,9 @@ tux_signal
 
 application
 : Base application class for
-    * threads management
+    * threads management (not yet)
     * strings/text output encodings {ansi256; html, ...} management
-    * async IO (starting in linux epoll, will check about the "not so better" io_submit)
+    * async IO (starting in linux epoll, will check about the "not so better" io_submit [2023/03/12: decision: no io_submit...])
     * messaging
     * central loop, ...
 
