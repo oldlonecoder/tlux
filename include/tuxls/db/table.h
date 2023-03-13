@@ -23,36 +23,61 @@
 
 
 #pragma once
+#include<tuxls/object.h>
+#ifdef _WIN32
 
-#include<tlux/db/table.h>
-#include<tlux/strbrk.h>
+#   include <winsqlite/winsqlite3.h>
+#else
+#   include <sqlite3.h>
+#endif
+#include <tuxls/db/field.h>
 
-#include<tlux/signals.h>
-
-namespace tux::db {
-
-class  database : public object
+namespace tux::db
 {
-    sqlite3*    _file = nullptr;
-    object::list _tables;
-    std::string _ext = ".data";
-    static int sqlite3_callback(void *NotUsed, int argc, char **argv, char **azColName);
-    signal<code::M(int, char **, char **)> callback_signal;
 
+
+
+
+/*!
+ * @brief Database table class representing the table::schema in sqlite.
+ *
+ * The parent object pointer refers to the instance of the sqlite (database file) schema where this table/table is defined.
+ * The children object pointers are the columns/fields of this table/table;
+ * The table's [select] list is the selected columns/fields
+ * @note   The tux::object::id field is the name of the column in the sqlite table schema.
+ * @author &copy; 2023, Serge Lussier (oldlonecoder@gmail.com)
+ */
+class  table : public object
+{
+    // definitions
+    object::list _selected; ///< Selected field for
+    object::list _uniques;
+
+    //-----------------
 public:
 
+    enum class type : uint8_t
+    {
+        Primary,
+        Link,
+        View,
+        Trigger
+    } _type = table::type::Primary;
 
-    database():object(){} // Prevent the compiler to delete this constructor by the compiler when " = default;"
-    database(object* aparent, const std::string& aid, const std::string& aext = ".data");
-    ~database() override;
+    table() = default;
+    ~table() override;
 
-    code::M open();
-    code::M create();
-    code::M close();
+    table(object* aparent, const std::string& aid);
 
-    code::M execute_query(const std::string& aquery_string);
-    table& operator [](const std::string& eid);
-    table* add_table(const std::string& ename);
+    field* add_field(field&& af);
+    table& operator << (field&& f);
+    field& operator[](const std::string& fid);
+    code::M add_foreign(const std::string& fname, const std::string& ftablename, const std::string& fcolname);
+    field& query_field_by_name(const std::string& f_id);
+    field* field_by_id(const std::string& fname);
+    code::M set_unique(stracc::list fields);
+    code::M text(stracc& query_acc);
 };
 
-} // namespace tux::db
+} // namespace tux:db
+

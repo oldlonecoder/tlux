@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
-#include <tlux/application.h>
-#include <tlux/db/database.h>
-#include <tlux/db/field.h>
-#include <tlux/db/table.h>
+#include <tuxls/application.h>
+#include <tuxls/db/database.h>
+#include <tuxls/db/field.h>
+#include <tuxls/db/table.h>
 
-#include <tlux/diagnostic.h>
+#include <tuxls/diagnostic.h>
 
 
 
-class tlux_database : public ::testing::Test
+class tuxls_database : public ::testing::Test
 {
 
 
@@ -23,13 +23,13 @@ protected:
 
 
 
-void tlux_database::SetUp()
+void tuxls_database::SetUp()
 {
     app.init(0,nullptr);
 
 }
 
-void tlux_database::TearDown()
+void tuxls_database::TearDown()
 {
 
     using tux::diagnostic;
@@ -43,7 +43,7 @@ void tlux_database::TearDown()
 }
 
 
-TEST_F(tlux_database, database_do_create)
+TEST_F(tuxls_database, database_do_create)
 {
     std::cout << "\n\n";
     using tux::db::database;

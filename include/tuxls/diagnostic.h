@@ -30,11 +30,11 @@
 // Get rid of obsolete include guard use this instead! :
 #pragma once
 // ----------------------------------
-#include <tlux/object.h>
-#include <tlux/textattr.h>
-#include <tlux/utf/Icons.h>
+#include <tuxls/object.h>
+#include <tuxls/textattr.h>
+#include <tuxls/utf/Icons.h>
 #include <map>
-#include <tlux/geometry.h>
+#include <tuxls/geometry.h>
 
 
 

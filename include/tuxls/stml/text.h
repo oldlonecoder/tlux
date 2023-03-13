@@ -2,11 +2,11 @@
 
 
 
-#include <tlux/stracc.h>
-#include <tlux/strbrk.h>
-#include <tlux/utf/Icons.h>
-#include <tlux/utf/accents.fr.h>
-#include <tlux/diagnostic.h>
+#include <tuxls/stracc.h>
+#include <tuxls/strbrk.h>
+#include <tuxls/utf/Icons.h>
+#include <tuxls/utf/accents.fr.h>
+#include <tuxls/diagnostic.h>
 
 namespace tux
 {

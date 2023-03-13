@@ -20,8 +20,8 @@
  ***************************************************************************/
 
 #pragma once
-#include <tlux/stracc.h>
-#include <tlux/stracc.h>
+#include <tuxls/stracc.h>
+#include <tuxls/stracc.h>
 
 namespace tux
 {

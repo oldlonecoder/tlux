@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include <tlux/dlconf.h>
+#include <tuxls/dlconf.h>
 #include <vector>
 #include <string>
 #include <string_view>

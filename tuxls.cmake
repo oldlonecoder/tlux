@@ -1,4 +1,4 @@
-#project(tlux VERSION 0.0.1 LANGUAGES CXX)
+#project(tuxls VERSION 0.0.1 LANGUAGES CXX)
 
 
 include(GNUInstallDirs)
@@ -52,7 +52,7 @@ add_executable(tests.app
 	tests/test.cc
 )
 
-target_link_libraries(tests.app sqlite3 tlux ${CMAKE_DL_LIBS})
+target_link_libraries(tests.app sqlite3 tuxls ${CMAKE_DL_LIBS})
 
 
 install(DIRECTORY

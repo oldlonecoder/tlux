@@ -22,8 +22,8 @@
 #pragma once
 //#include <tux/object.h>
 #include <thread>
-#include <tlux/argc.h>
-#include <tlux/diagnostic.h>
+#include <tuxls/argc.h>
+#include <tuxls/diagnostic.h>
 #include <functional>
 
 

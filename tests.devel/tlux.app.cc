@@ -1,6 +1,6 @@
 
-#include <tlux/application.h>
-#include <tlux/cc_arg.h>
+#include <tuxls/application.h>
+#include <tuxls/cc_arg.h>
 
 
 namespace tux

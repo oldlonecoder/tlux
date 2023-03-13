@@ -23,9 +23,9 @@
 
 
 #pragma once
-#include<tlux/object.h>
+#include<tuxls/object.h>
 //#include <sqlite3.h>
-#include<tlux/diagnostic.h>
+#include<tuxls/diagnostic.h>
 
 namespace tux::db
 {

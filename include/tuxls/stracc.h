@@ -36,9 +36,9 @@
 #include <string_view>
 #include <chrono>
 #include <stack>
-#include <tlux/textattr.h>
-#include <tlux/utf/Icons.h>
-#include <tlux/utf/accents.fr.h>
+#include <tuxls/textattr.h>
+#include <tuxls/utf/Icons.h>
+#include <tuxls/utf/accents.fr.h>
 #include <string_view>
 
 

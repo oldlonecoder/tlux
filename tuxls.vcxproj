@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{40cee76f-0849-411d-80c2-d538c17f01dd}</ProjectGuid>
-    <RootNamespace>tlux</RootNamespace>
+    <RootNamespace>tuxls</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level2</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TLUX_EXPORT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tuxls_EXPORT;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -91,7 +91,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TLUX_EXPORT;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tuxls_EXPORT;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -108,7 +108,7 @@
     <ClCompile>
       <WarningLevel>Level2</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TLUX_EXPORT;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tuxls_EXPORT;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -127,7 +127,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TLUX_EXPORT;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>tuxls_EXPORT;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -143,24 +143,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\tlux\application.h" />
-    <ClInclude Include="include\tlux\argc.h" />
-    <ClInclude Include="include\tlux\db\database.h" />
-    <ClInclude Include="include\tlux\db\field.h" />
-    <ClInclude Include="include\tlux\db\query.h" />
-    <ClInclude Include="include\tlux\db\table.h" />
-    <ClInclude Include="include\tlux\diagnostic.h" />
-    <ClInclude Include="include\tlux\dlconf.h" />
-    <ClInclude Include="include\tlux\expect.h" />
-    <ClInclude Include="include\tlux\geometry.h" />
-    <ClInclude Include="include\tlux\object.h" />
-    <ClInclude Include="include\tlux\stml\text.h" />
-    <ClInclude Include="include\tlux\stracc.h" />
-    <ClInclude Include="include\tlux\strbrk.h" />
-    <ClInclude Include="include\tlux\textattr.h" />
-    <ClInclude Include="include\tlux\delegate.h" />
-    <ClInclude Include="include\tlux\utf\accents.fr.h" />
-    <ClInclude Include="include\tlux\utf\Icons.h" />
+    <ClInclude Include="include\tuxls\application.h" />
+    <ClInclude Include="include\tuxls\argc.h" />
+    <ClInclude Include="include\tuxls\db\database.h" />
+    <ClInclude Include="include\tuxls\db\field.h" />
+    <ClInclude Include="include\tuxls\db\query.h" />
+    <ClInclude Include="include\tuxls\db\table.h" />
+    <ClInclude Include="include\tuxls\diagnostic.h" />
+    <ClInclude Include="include\tuxls\dlconf.h" />
+    <ClInclude Include="include\tuxls\expect.h" />
+    <ClInclude Include="include\tuxls\geometry.h" />
+    <ClInclude Include="include\tuxls\object.h" />
+    <ClInclude Include="include\tuxls\stml\text.h" />
+    <ClInclude Include="include\tuxls\stracc.h" />
+    <ClInclude Include="include\tuxls\strbrk.h" />
+    <ClInclude Include="include\tuxls\textattr.h" />
+    <ClInclude Include="include\tuxls\delegate.h" />
+    <ClInclude Include="include\tuxls\utf\accents.fr.h" />
+    <ClInclude Include="include\tuxls\utf\Icons.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\application.cc" />

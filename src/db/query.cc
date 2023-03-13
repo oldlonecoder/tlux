@@ -1,4 +1,4 @@
-#include "tlux/db/query.h"
+#include "tuxls/db/query.h"
 /***************************************************************************
 *   Copyright (C) 2005/2023 by Serge Lussier                              *
 *   2005: (bretzel@teaccweb.homelinux.net)                                  *

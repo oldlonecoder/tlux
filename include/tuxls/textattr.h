@@ -40,7 +40,7 @@
 #include <stack>
 #include <unordered_map>
 #include <map>
-#include <tlux/dlconf.h>
+#include <tuxls/dlconf.h>
 
 
 

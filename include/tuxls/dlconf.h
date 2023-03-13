@@ -13,7 +13,7 @@
 #   define _CRT_SECURE_NO_WARNINGS
 #   define _SCL_SECURE_NO_WARNINGS
 
-#   ifdef TLUX_EXPORT
+#   ifdef tuxls_EXPORT
 #       define TUXLIB __declspec(dllexport)
 #   else
 #       define TUXLIB __declspec(dllimport)

@@ -22,8 +22,8 @@
 
 #pragma once
 
-//#include <tlux/diagnostic.h>
-#include <tlux/signals.h>
+//#include <tuxls/diagnostic.h>
+#include <tuxls/signals.h>
 #include <utility>
 
 namespace tux::cmd

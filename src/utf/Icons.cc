@@ -17,7 +17,7 @@
  *
  */
 
-#include <tlux/utf/Icons.h>
+#include <tuxls/utf/Icons.h>
 
 namespace tux
 {

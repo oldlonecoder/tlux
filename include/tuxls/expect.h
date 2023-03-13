@@ -21,7 +21,7 @@
 
 
 #pragma once
-#include <tlux/diagnostic.h>
+#include <tuxls/diagnostic.h>
 
 
 namespace tux

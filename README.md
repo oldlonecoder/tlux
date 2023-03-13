@@ -1,4 +1,4 @@
-# tlux
+# tuxls
 ####[<span style="color : brown;">tux</span> penguin & a cup of <span style="color : green;">tea</span> + lux (light)]
 
 * My personal legacy, writting and learning <span style="color : blue;">C++</span> in 1988-esque code-style and some gems from modern c++-11/20 easiness of STL goodies.

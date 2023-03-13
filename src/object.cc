@@ -2,7 +2,7 @@
 // Created by oldlonecoder on 1/19/23.
 //
 
-#include "tlux/object.h"
+#include "tuxls/object.h"
 
 namespace tux {
 

@@ -15,58 +15,58 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\tlux\application.h">
+    <ClInclude Include="include\tuxls\application.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\argc.h">
+    <ClInclude Include="include\tuxls\argc.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\diagnostic.h">
+    <ClInclude Include="include\tuxls\diagnostic.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\geometry.h">
+    <ClInclude Include="include\tuxls\geometry.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\object.h">
+    <ClInclude Include="include\tuxls\object.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\stracc.h">
+    <ClInclude Include="include\tuxls\stracc.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\strbrk.h">
+    <ClInclude Include="include\tuxls\strbrk.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\textattr.h">
+    <ClInclude Include="include\tuxls\textattr.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\delegate.h">
+    <ClInclude Include="include\tuxls\delegate.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\stml\text.h">
+    <ClInclude Include="include\tuxls\stml\text.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\utf\accents.fr.h">
+    <ClInclude Include="include\tuxls\utf\accents.fr.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\utf\Icons.h">
+    <ClInclude Include="include\tuxls\utf\Icons.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\dlconf.h">
+    <ClInclude Include="include\tuxls\dlconf.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\db\table.h">
+    <ClInclude Include="include\tuxls\db\table.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\db\query.h">
+    <ClInclude Include="include\tuxls\db\query.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\db\field.h">
+    <ClInclude Include="include\tuxls\db\field.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\db\database.h">
+    <ClInclude Include="include\tuxls\db\database.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\tlux\expect.h">
+    <ClInclude Include="include\tuxls\expect.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

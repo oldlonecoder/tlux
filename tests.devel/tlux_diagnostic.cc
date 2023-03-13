@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include <tlux/application.h>
+#include <tuxls/application.h>
 
-class tlux_diagnostic : public ::testing::Test
+class tuxls_diagnostic : public ::testing::Test
 {
 
 
@@ -15,18 +15,18 @@ protected:
 
 
 
-void tlux_diagnostic::SetUp()
+void tuxls_diagnostic::SetUp()
 {
     app.init(0,nullptr);
 
 }
 
-void tlux_diagnostic::TearDown()
+void tuxls_diagnostic::TearDown()
 {
 
 }
 
-TEST_F(tlux_diagnostic, diagnostic_instance_and_clear)
+TEST_F(tuxls_diagnostic, diagnostic_instance_and_clear)
 {
     using tux::diagnostic;
     using tux::code;

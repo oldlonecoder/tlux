@@ -2,9 +2,9 @@
 // Created by oldlonecoder on 1/27/23.
 //
 
-#include "tlux/diagnostic.h"
-#include "tlux/application.h"
-#include "tlux/stml/text.h"
+#include "tuxls/diagnostic.h"
+#include "tuxls/application.h"
+#include "tuxls/stml/text.h"
 
 
 //

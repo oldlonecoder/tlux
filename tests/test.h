@@ -23,8 +23,8 @@
 
 #pragma once
 
-#include <tlux/stml/text.h>
-#include <tlux/application.h>
+#include <tuxls/stml/text.h>
+#include <tuxls/application.h>
 
 
 class test : public tux::application
@@ -49,7 +49,7 @@ public:
     {
         return Fini.connect(obj, fun);
     }
-    
+
 
 };
 

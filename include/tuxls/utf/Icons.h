@@ -20,7 +20,7 @@
  */
 
 
-#include<tlux/dlconf.h>
+#include<tuxls/dlconf.h>
 #include <string>
 #include <vector>
 

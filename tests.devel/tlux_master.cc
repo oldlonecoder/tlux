@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <tlux/application.h>
+#include <tuxls/application.h>
 
 class master_test : public ::testing::Test
 {
