@@ -1,11 +1,58 @@
-//
-// Created by oldlonecoder on 1/16/23.
-//
+
+
 #include <tuxls/geometry.h>
+#include <tuxls/stracc.h>
 
 
 
-namespace tux{
+
+namespace tux
+{
+
+
+//- -------------------------------- winbuffer ------------------------------------------------------------
+
+
+
+rect::rect(rect&& r) noexcept:
+a(std::move(r.a)),
+b(std::move(r.b)),
+sz(std::move(r.sz))
+{
+
+}
+rect::rect(const rect& r) :
+a(r.a),
+b(r.b),
+sz(r.sz)
+{
+
+}
+
+
+rect& rect::operator=(rect&& r) noexcept
+{
+    a = std::move(r.a);
+    b = std::move(r.b);
+    sz = std::move(r.sz);
+    return *this;
+}
+rect& rect::operator=(const rect& r)
+{
+    a = r.a;
+    b = r.b;
+    sz = r.sz;
+    return *this;
+
+}
+
+
+dim::operator std::string() const
+{
+    stracc str = "{{%d,%d}, {%d,%d}, %d %d}: %d";
+    str << min.x << min.y << max.x << max.y << w << h << w*h;
+    return  str();
+}
 
 winbuffer &winbuffer::gotoxy(int x, int y)
 {
@@ -15,16 +62,16 @@ winbuffer &winbuffer::gotoxy(int x, int y)
 
 void winbuffer::set_geometry(int w, int h)
 {
-    r = rectangle<int>{{1,1},{1,1},w,h};
+    r = rect(point(0,0),{{1,1},{1,1},w,h});
 
     clear();
 }
 
 winbuffer &winbuffer::operator++()
 {
-    if(cxy.x >= r.wh.w)
+    if(cxy.x >= r.sz.w)
     {
-        if(cxy.y <= r.wh.h)
+        if(cxy.y <= r.sz.h)
         {
             cxy.y++;
             cxy.x = 0;
@@ -38,9 +85,9 @@ winbuffer &winbuffer::operator++()
 
 winbuffer &winbuffer::operator++(int)
 {
-    if(cxy.x >= r.wh.w)
+    if(cxy.x >= r.sz.w)
     {
-        if(cxy.y <= r.wh.h)
+        if(cxy.y <= r.sz.h)
         {
             cxy.y++;
             cxy.x = 0;
@@ -72,12 +119,12 @@ winbuffer &winbuffer::operator--(int)
 /// <returns></returns>
 winbuffer &winbuffer::put(const std::string &txt)
 {
-    int line_width = r.wh.w - cxy.x;
+    int line_width = r.width() - cxy.x;
     auto ln         = txt.length();
 
     auto dx = line_width <= ln ? line_width : ln;
 
-    std::string::iterator crs = win->str().begin() + cxy.y * r.wh.w + cxy.x;
+    std::string::iterator crs = win->str().begin() + cxy.y * r.width() + cxy.x;
     auto                  p   = txt.begin();
     for(int               x   = 0; x < dx; x++)
         *crs++ = *p++;
@@ -94,7 +141,7 @@ void winbuffer::clear()
     else
         win->clear();
 
-    *win = std::string(r.wh.w * r.wh.h, ' ');
+    *win = std::string(r.width() * r.height(), ' ');
     //std::cerr << __PRETTY_FUNCTION__ << "contents: '" << win->_d << "'\n";
 }
 
@@ -106,20 +153,9 @@ void winbuffer::release()
 std::string winbuffer::details()
 {
     stracc str = "winbuffer details:\n";
-    str << (std::string)r << " cursor: " << std::string(cxy);
+    str << r.to_string() << " cursor: " << std::string(cxy);
     return str();
 }
-
-
-
-winbuffer & winbuffer::operator<<(point<> xy)
-{
-    gotoxy(xy.x, xy.y);
-    return *this;
-}
-
-
-
 
 winbuffer::operator std::string()
 {
@@ -127,14 +163,38 @@ winbuffer::operator std::string()
     if(!win)
         return "oops! there is no such defined and initialised area!";
     str += '\n';
-    for(int l = 0; l < r.wh.h; l++)
+    for(int l = 0; l < r.height(); l++)
     {
-        for(int c = 0; c < r.wh.w; c++)
-            str += *(win->str().begin() + (l * r.wh.w + c));
+        for(int c = 0; c < r.width(); c++)
+            str += *(win->str().begin() + (l * r.width() + c));
         str += '\n';
     }
     return str;
 }
 
 
+rect::operator std::string() const
+{
+    stracc str = "[{%d,%d} {%d,%d}]:{%d*%d}[%d]";
+    str << a.x , a.y, b.x, b.y, sz.w, sz.h, sz.w * sz.h;
+    return str();
+    // return std::format("[{{{},{}}} {{{},{}}}]:{{{}*{}}}[{}]", a.x, a.y, b.x, b.y, sz.w, sz.h, sz.w * sz.h);
 }
+
+std::string rect::to_string() const
+{
+    return this->operator std::string();
+}
+
+winbuffer & winbuffer::operator<<(point xy)
+{
+    gotoxy(xy.x, xy.y);
+    return *this;
+}
+
+
+}
+
+
+
+

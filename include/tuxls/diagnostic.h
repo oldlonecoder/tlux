@@ -171,12 +171,9 @@ public:
         diagnostic::log_entry& operator << (code::type ty);
         diagnostic::log_entry& operator << (textattr::pair&& p );
         diagnostic::log_entry& operator << (color::type c);
-        diagnostic::log_entry& operator << (point<> pt);
-        diagnostic::log_entry& operator << (point<float> pt);
-        diagnostic::log_entry& operator << (dim<> dxy);
-        diagnostic::log_entry& operator << (dim<float> dxy);
-        diagnostic::log_entry& operator << (rectangle<> r);
-        diagnostic::log_entry& operator << (rectangle<float> r);
+        diagnostic::log_entry& operator << (point pt);
+        diagnostic::log_entry& operator << (dim dxy);
+        diagnostic::log_entry& operator << (rect r);
         diagnostic::log_entry& operator << (const stracc& accstr);
 
         template<typename T> diagnostic::log_entry& operator << (const T& val_)

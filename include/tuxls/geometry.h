@@ -30,179 +30,253 @@
 namespace tux
 {
 
-template<typename T = int> struct point
+using T = int;
+struct TUXLIB point
 {
-    T x;
-    T y;
-    point<T>& operator += (point&& pt ) noexcept { x += pt.x;y += pt.y;return *this; }
-    point<T>& operator -= (point&& pt ) noexcept { x -= pt.x;y -= pt.y;return *this; }
-    point<T>& operator -= (const point& pt ) { x -= pt.x;y -= pt.y;return *this; }
-    point<T>& operator += (const point& pt ) { x += pt.x;y += pt.y;return *this; }
-    point<T> operator + (const point& pt) { return {x+pt.x, y+pt.y}; }
-    point<T> operator - (const point& pt) { return {x-pt.x, y-pt.y}; }
-    bool operator <= (const point& pt) { return (x <= pt.x) && (y <=pt.y); }
-    bool operator < (const point& pt) { return (x < pt.x) && (y < pt.y); }
-    bool operator >= (const point& pt) { return (x >= pt.x) && (y >= pt.y); }
-    bool operator > (const point& pt) { return (x > pt.x) && (y > pt.y); }
-    bool operator == (const point& pt) { return (x == pt.x) && (y == pt.y); }
-    bool operator != (const point& pt) { return (x != pt.x) || (y !=pt.y); }
-    point<T>& operator=(point&& pt) noexcept { x = pt.x; y = pt.y; return *this; }
-    point<T>& operator=( const point& pt) { x = pt.x; y = pt.y; return *this; }
 
-    explicit operator std::string() const
+    T x = 0;
+    T y = 0;
+
+    using list = std::vector<point>;
+    using iterator = point::list::iterator;
+    using const_iterator = point::list::const_iterator;
+
+    point() {};
+    point(point&&) noexcept = default;
+    ~point() {}
+
+    point(T x_, T y_) :x(x_), y(y_) {}
+    point(const point& p)
     {
-        stracc str;
-        str << '(' << x << ',' << y << ')';
+        x = p.x;
+        y = p.y;
+    }
+
+
+    point& operator = (const point& p) { x = p.x; y = p.y; return *this; }
+
+    point& operator -= (const point& dxy)
+    {
+        x -= dxy.x;
+        y -= dxy.y;
+        return *this;
+    }
+
+
+    point& operator += (const point& dxy)
+    {
+        x += dxy.x;
+        y += dxy.y;
+        return *this;
+    }
+
+    point operator + (const point& dxy) const
+    {
+        return {dxy.x+x, dxy.y+y};
+    }
+
+
+    point operator - (const point& dxy) const
+    {
+        return { x - dxy.x, y - dxy.y };
+    }
+
+    point& operator ()(T x_, T y_)
+    {
+        x = x_;
+        y = y_;
+        return *this;
+    }
+    operator std::string() const
+    {
+        stracc str = "{%d,%d}";
+        str << x << y;
         return str();
     }
 };
 
 
-template<typename T=int> struct  dim
+struct TUXLIB dim
 {
-    T w = T{0};
-    T h = T{0};
+    point min;
+    point max;
+    T w = 0;
+    T h = 0;
 
-
-    explicit operator std::string() const
-    {
-        stracc str;
-        str << '{' << w << ',' << h << '}';
-
-        return str();
-    }
-
-    T area() { return w*h; }
-
+    operator bool() const { return ((w > 0) && ( h > 0)); }
+    operator std::string() const;
+    T area() { return w * h; }
 };
 
 
-template<typename T = int> struct  rectangle
+struct TUXLIB rect
 {
-    point<T> a;
-    point<T> b;
-    dim<T>   wh;
 
-    explicit operator bool() const
+    point a;
+    point b;
+    dim   sz;
+
+    using list = std::vector<rect>;
+    using iterator = rect::list::iterator;
+    using const_iterator = rect::list::const_iterator;
+
+    rect() {}
+    ~rect() {}
+    rect(rect&& r) noexcept;
+    rect(const rect& r);
+
+
+    rect& operator=(rect&& r) noexcept;
+    rect& operator=(const rect& r) ;
+
+    rect(point a_, point b_)
     {
-        return ( wh.h > T{0} ) && ( wh.w > T{0} );
+        a = a_;
+        b = b_;
+        //sz = { {T{100},T{100}}, T{std::abs(b.x - a.x + 1)}, T{std::abs(b.y - a.y + 1)} };
+        //sz = { {T{1},T{1}}, {T{b_.x+1 - a_.x},T{b_.y+1 - a_.y}},  T{std::abs(b.x - a.x + 1)}, T{std::abs(b.y - a.y + 1)} };
+        sz.w = b.x-a.x + a.x==0?1:0;
+        sz.h = b.y-a.y + a.y==0?1:0;
+        sz.min = {1,1};
+        sz.max = {10000,10000};
+    }
+
+    rect(point a_, dim d)
+    {
+        a = a_;
+        sz = d;
+        b = { a + point{a.x==0?sz.w-1:sz.w, a.y==0? sz.h-1:sz.h} };
     }
 
 
-    explicit operator std::string() const
+    rect(T x, T y, T dx, T dy)
     {
-        stracc str;
-        str << "({" << a.x << ',' << a.y << "},{" << b.x << ',' << b.y << "})[" << wh.w << '*' << wh.h << "]=" << wh.w*wh.h;
-        return str();
+        a = { x,y };
+        b = { x+dx, y+dy };
+        sz.min = {1,1};
+        sz.max = {10000,10000};
+        sz.w = dx;
+        sz.h = dy;
+    }
+
+    void assign(T x, T y, T w, T h)
+    {
+        a = { x,y };
+        b = { x + w - 1, y + h - 1 };
+        sz = { {1,1},{10000,10000}, w,h};
+    }
+
+    void assign(point a_, point b_)
+    {
+        a = a_;
+        b = b_;
+        sz.w = (b.x+1) - a.x;
+        sz.h = (b.y+1) - a.y;
+    }
+
+    void assign(point a_, dim dxy)
+    {
+        a = a_;
+        sz = dxy;
+        b = { a.x + dxy.w - 1, a.y + dxy.h - 1 };
+    }
+
+
+    rect& operator += (point dx)
+    {
+        a += dx;
+        b += dx;
+        return *this;
+    }
+    rect& operator -= (point dx)
+    {
+        a -= dx;
+        b -= dx;
+        return *this;
+    }
+    void resize(dim new_sz)
+    {
+        assign({ a.x, a.y }, new_sz);
+    }
+
+    void move_at(const point& p)
+    {
+        a.x = p.x;
+        a.y = p.y;
+        b.x = a.x + sz.w - 1;
+        b.y = a.y + sz.h - 1;
+    }
+
+
+    bool in(point p) const
+    {
+        return ((p.x >= a.x) && (p.x <= b.x) && (p.y >= a.y) && (p.y <= b.y));
+    }
+
+
+    void move(point dt)
+    {
+        a += dt;
+        b += dt;
+    }
+
+    int width()  const { return sz.w; }
+    int height() const  { return sz.h; }
+
+    /*!
+        @brief intersection between this and r
+    */
+    rect operator & (rect r) const
+    {
+        rect ret;
+        point a_ = { a.x <= r.a.x ? r.a.x : a.x, a.y <= r.a.y ? r.a.y : a.y };
+        point b_ = { b.x >= r.b.x ? r.b.x : b.x, b.y >= r.b.y ? r.b.y : b.y };
+
+        auto c = in(a_) || in(b_);
+        ret.assign(a_, b_);
+        if (!c)
+        {
+            ret.sz = {  };
+        }
+
+        return ret;
     }
 
     /*!
-     * @brief assign this instance with new values.
-     *
-     * @param x
-     * @param y
-     * @param w
-     * @param h
-     *
-     * @note Some glitches is to be seen when T=float
-     */
-    void assign( T x ,T y, T w, T h )
+        @brief merges this and r
+    */
+    rect operator | (rect r) const
     {
-        a.x = a;
-        a.y = b;
-        b.x = a.x + w - T{1};
-        b.y = a.y + h - T{1};
-        wh  = { w,h };
-    }
-    /*!
-     * @brief assign this instance with new values.
-     *
-     * @param x
-     * @param y
-     * @param w
-     * @param h
-     *
-     * @note Some glitches is to be seen when T=float
-     */
-    void assign ( const point<T>& _a, const point<T>& _b )
-    {
-        a = _a;
-        b = _b;
-        s ( b.x - a.x + T{1}, b.y - a.y +T{1} );
+        rect ret;
+        point a_ = { r.a.x <= a.x ? r.a.x : a.x, r.a.y <= a.y ? r.a.y : a.y };
+        point b_ = { r.b.x <= b.x ? r.b.x : b.x, r.b.y <= b.y ? r.b.y : b.y };
+        ret.assign(a_, b_);
+        return ret;
     }
 
-
-
-    /*!
-     * @brief build a rectangle from the intersection with the rhs.
-     * @param rhs Righ-Hand-Side rectangle<T> argument
-     *
-     * @code
-     * +--------------------+
-     * |                    |
-     * |                    |   +---------------------------+
-     * +--------------------+   |                           |
-     *                          |                           |
-     *                          |                           |
-     *                          +---------------------------+
-     * =========================================================
-     * +--------------------------+
-     * |                          |
-     * |                  +-------+----------+
-     * |                  |-------|          |
-     * |                  |-------|          |
-     * |                  +-------+----------+
-     * |                          |
-     * +--------------------------+
-     *
-     * @return rectangl<T> resulting from the intersection.
-     */
-    rectangle<T> intersection(const rectangle<T>& rhs)
-    {
-        rectangle<T> r;
-        point<T> ra,rb;
-        ra  = {a.x <= rhs.a.x ? rhs.a.x : a.x, a.y <= rhs.a.y ? rhs.a.y : a.y};
-        rb  = {b.x <= rhs.b.x ? b.x : rhs.b.x, b.y <= rhs.b.y ? b.y : rhs.b.y};
-
-        if ( (!contains(ra)) || (!contains(rb)) ) return {};
-        r.assign ( ra,rb );
-        return r;
+    rect operator + (const point& xy)const {
+        return {{a.x + xy.x, a.y + xy.y}, sz};
     }
 
-
-    bool contains(point <T> ab)
+    std::string to_string() const;
+    operator std::string() const ;
+    operator bool() const
     {
-        return ab >= a && ab <= b;
+
+        return sz.operator bool();
     }
-
-
-
-    rectangle<T> U(const rectangle<T>& rhs)
-    {
-        T xx1,yy1,xx2,yy2;
-        rectangle<T> r;
-        xx1 = rhs.a.x < a.x ? rhs.a.x : a.x;
-        xx2 = rhs.b.x > b.x ? rhs.b.x : b.x;
-        yy1 = rhs.a.y < a.y ? rhs.a.y : a.y;
-        yy2 = rhs.b.y > b.y ? rhs.b.y : b.y;
-
-        r.assign ( {xx1,yy1},{xx2,yy2} );
-        return r;
-    }
-    rectangle<T>& operator & (const rectangle<T>& rhs) { return intersection(rhs);}
-    rectangle<T>& operator | (const rectangle<T>& rhs) { return U(rhs);}
-
-
 };
 
-struct  winbuffer
+
+
+struct TUXLIB winbuffer
 {
     stracc* win = nullptr;
-    point<> cxy;
-    rectangle<> r;
+    point cxy;
+    rect r;
 
     winbuffer& gotoxy(int x, int y);
-    winbuffer& operator << (point<> xy);
+    winbuffer& operator << (point xy);
     void set_geometry(int w, int h);
 
     // internal cursor movements:
@@ -229,7 +303,7 @@ struct  winbuffer
     operator std::string();// {return win ? win->str() : "";}
 
 };
-
-
-
 }
+
+
+

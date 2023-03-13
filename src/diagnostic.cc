@@ -212,41 +212,26 @@ diagnostic::log_entry &diagnostic::log_entry::operator<<(color::type c)
     return *this;
 }
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(point<> pt)
+diagnostic::log_entry &diagnostic::log_entry::operator<<(point pt)
 {
     str_acc << (std::string)pt;
     return *this;
 }
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(point<float> pt)
-{
-    str_acc << (std::string)pt;
-    return *this;
-}
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(dim<> dxy)
+diagnostic::log_entry &diagnostic::log_entry::operator<<(dim dxy)
 {
     str_acc << (std::string)dxy;
     return *this;
 }
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(dim<float> dxy)
-{
-    str_acc << (std::string)dxy;
-    return *this;
-}
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(rectangle<> r)
+diagnostic::log_entry &diagnostic::log_entry::operator<<(rect r)
 {
     str_acc << (std::string)r;
     return *this;
 }
 
-diagnostic::log_entry &diagnostic::log_entry::operator<<(rectangle<float> r)
-{
-    str_acc << (std::string)r;
-    return *this;
-}
 
 diagnostic::log_entry& diagnostic::log_entry::operator << (const stracc& accstr)
 {

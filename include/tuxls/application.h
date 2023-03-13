@@ -20,7 +20,6 @@
  ***************************************************************************/
 
 #pragma once
-//#include <tux/object.h>
 #include <thread>
 #include <tuxls/argc.h>
 #include <tuxls/diagnostic.h>
@@ -30,11 +29,6 @@
 //#include <tux/db/database.h>
 
 namespace tux {
-
-
-
-
-
 
 class TUXLIB application : public object
 {
