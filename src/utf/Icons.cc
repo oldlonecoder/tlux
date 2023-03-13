@@ -124,7 +124,8 @@ Icon::DataArray Icon::Data =
     CSend              ,
     CRecieve           ,
     CEmail             ,
-    CEmail2
+    CEmail2            ,
+    CNullPtr
 
 };
 const char* IcNames[] =
@@ -230,7 +231,8 @@ const char* IcNames[] =
     "Send",
     "Recieve",
     "Email",
-    "Email2"
+    "Email2",
+    "NullPtr"
 };
 
 Icon::Type Icon::Scan(std::string IcName)

@@ -64,6 +64,7 @@ public:
     arg& descriptions(const std::string& _txt);
     template<typename T> signal<arg&,arg::context&>::iterator  connect(T* inst_, expect<>(T::* fn)(arg&, arg::context&))
     {
+        diagnostic::debug(sfnl) << "signal id:" << _desc;
         return _signal.connect(inst_, fn);
     }
 private:

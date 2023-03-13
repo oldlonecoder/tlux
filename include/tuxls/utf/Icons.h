@@ -132,6 +132,7 @@ struct TUXLIB  Icon final
     static constexpr T CRecieve              = "📥 ";      //  Recieve
     static constexpr T CEmail                = "📫 ";      //  Email
     static constexpr T CEmail2               = "📬 ";      //  Email2
+    static constexpr T CNullPtr              = "👽 ";      //  NullPtr
 
     static constexpr Type Ok                 = 0;
     static constexpr Type Comment            = 1;
@@ -235,6 +236,7 @@ struct TUXLIB  Icon final
     static constexpr Type Recieve            = 99;
     static constexpr Type Email              = 100;
     static constexpr Type Email2             = 101;
+    static constexpr Type NullPtr            = 102;
     static Icon::DataArray Data;
 
     static Icon::Type Scan(std::string IcName);
